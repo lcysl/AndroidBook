@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">AndroidBook</string>
+
+    <string name="main_home">首页</string>
+    <string name="main_collect">收藏</string>
+    <string name="main_sort">分类</string>
+    <string name="main_my">我的</string>
+
 </resources>

@@ -3,4 +3,15 @@
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
+
+    <color name="splash_button">#FFFFFF</color>
+
+    <color name="guide_indicator_background">#FFFFFF</color>
+    <color name="guide_indicator_normal">#00BFFF</color>
+    <color name="guide_indicator_selected">#FC2C39</color>
+
+    <color name="main_bottom_background">#F8F8E8</color>
+    <color name="tab_text_normal">#515151</color>
+    <color name="tab_text_pressed">#1296DB</color>
+
 </resources>

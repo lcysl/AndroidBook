@@ -4,14 +4,65 @@
     android:id="@+id/activity_main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.uestc.lcy.androidbook.modules.MainActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--展示内容界面-->
+    <LinearLayout
+        android:id="@+id/ll_main_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:orientation="vertical"
+        >
+
+    </LinearLayout>
+
+    <!--展示底部标签-->
+    <LinearLayout
+        android:id="@+id/ll_main_bottom"
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@color/main_bottom_background"
+        android:layout_alignParentBottom="true"
+        >
+
+        <RadioGroup
+            android:id="@+id/rg_main_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/rb_main_home"
+                style="@style/tab_radio_button"
+                android:drawableTop="@drawable/main_home_icon"
+                android:text="@string/main_home"
+                android:checked="true"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_main_sort"
+                style="@style/tab_radio_button"
+                android:drawableTop="@drawable/main_sort_icon"
+                android:text="@string/main_sort"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_main_collect"
+                style="@style/tab_radio_button"
+                android:drawableTop="@drawable/main_collect_icon"
+                android:text="@string/main_collect"
+                />
+
+            <RadioButton
+                android:id="@+id/rb_main_my"
+                style="@style/tab_radio_button"
+                android:drawableTop="@drawable/main_my_icon"
+                android:text="@string/main_my"
+                />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
 </RelativeLayout>
