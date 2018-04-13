@@ -18,5 +18,7 @@
     <color name="top_bar_text_color">#FFFFFF</color>
     <!--线条的颜色-->
     <color name="line_color">#DCDCDC</color>
+    <!--注册字体的颜色-->
+    <color name="register_color">#FF40F1</color>
 
 </resources>

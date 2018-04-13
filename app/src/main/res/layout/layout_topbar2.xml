@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="60dp"
+    android:background="@color/colorPrimaryDark">
+
+    <Button
+        android:id="@+id/btn_top_bar2_return"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/return_button"
+        android:layout_marginLeft="20dp"/>
+
+    <TextView
+        android:id="@+id/tv_top_bar2_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="登录"
+        android:textSize="@dimen/top_bar_text_size"
+        android:layout_marginLeft="20dp"
+        android:textColor="@color/top_bar_text_color"
+        android:layout_gravity="center_vertical"/>
+
+
+
+</LinearLayout>

@@ -20,6 +20,8 @@
 
         <activity android:name=".modules.MainActivity" />
         <activity android:name=".modules.guide.GuideActivity"/>
+        <activity android:name=".modules.login.LoginActivity"/>
+        <activity android:name=".modules.register.RegisterActivity"/>
     </application>
 
 </manifest>
