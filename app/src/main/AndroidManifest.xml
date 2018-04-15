@@ -2,6 +2,9 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.uestc.lcy.androidbook">
 
+    <!--网络请求的权限-->
+    <uses-permission android:name="android.permission.INTERNET"/>
+
     <application
         android:name=".AndroidBookApplication"
         android:allowBackup="true"

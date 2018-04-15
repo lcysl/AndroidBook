@@ -13,9 +13,11 @@ import com.uestc.lcy.androidbook.R;
  * Created by Administrator on 2018\4\12 0012.
  */
 
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
 
+    protected T mPresenter;
     private LinearLayout mBaseLayout;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -24,13 +26,16 @@ public abstract class BaseActivity extends AppCompatActivity {
         //获取父布局
         mBaseLayout = findViewById(R.id.layout_base);
         initView();
-        init();
+        init(savedInstanceState);
+        initPresenter();
     }
 
     //获取子类的布局，抽象方法，由子类实现
     protected abstract int getSubLayout();
     //抽象方法，由子类实现，完成子类的一些初始化操作
-    protected abstract void init();
+    protected abstract void init(Bundle savedInstanceState);
+    //初始化子类的presenter
+    protected abstract void initPresenter();
 
     /**
      * baseactivity的初始化操作

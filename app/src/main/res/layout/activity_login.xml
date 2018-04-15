@@ -16,7 +16,7 @@
         android:layout_marginRight="20dp"
         android:orientation="vertical">
 
-        <EditText
+        <!--<EditText
             android:id="@+id/et_username"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -28,10 +28,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/login_password"
-            />
+            />-->
 
         <!--用户名-->
-        <!--<android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -41,11 +41,11 @@
                 android:id="@+id/et_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/login_password"/>
+                android:hint="@string/login_username"/>
 
-        </android.support.design.widget.TextInputLayout>-->
+        </android.support.design.widget.TextInputLayout>
         <!--密码-->
-        <!--<android.support.design.widget.TextInputLayout
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
@@ -57,7 +57,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/login_password"/>
 
-        </android.support.design.widget.TextInputLayout>-->
+        </android.support.design.widget.TextInputLayout>
 
         <!--注册按钮-->
         <RelativeLayout

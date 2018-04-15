@@ -1,5 +1,7 @@
 package com.uestc.lcy.androidbook.modules;
 
+import android.os.Bundle;
+import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -11,6 +13,8 @@ import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.modules.home.HomeFragment;
 import com.uestc.lcy.androidbook.modules.mine.MineFragment;
 import com.uestc.lcy.androidbook.modules.sort.SortFragment;
+
+import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
@@ -33,13 +37,55 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      * 初始化操作
      */
     @Override
-    protected void init() {
+    protected void init(Bundle savedInstanceState) {
         mFragmentManager = getSupportFragmentManager();
         initView();
         initData();
         setListener();
-        //代码模拟按钮的点击事件
-        rbHome.performClick();
+        restoreLastFragment(savedInstanceState);
+    }
+
+    @Override
+    protected void initPresenter() {
+
+    }
+
+    /**
+     * 当系统回收时将当前界面下标保存
+     * @param outState
+     */
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putInt("currentFragmentIndex", currentFragmentIndex);
+        super.onSaveInstanceState(outState);
+    }
+
+    /**
+     * 解决因内存重启导致的重叠问题
+     * 恢复上次离开时的Fragment
+     * @param savedInstanceState
+     */
+    private void restoreLastFragment(Bundle savedInstanceState) {
+        if (savedInstanceState != null) {
+            //savedInstanceState不为null表明系统已回收。
+            //1.获取下标
+            currentFragmentIndex = savedInstanceState.getInt("currentFragmentIndex");
+            //2.获取所有Fragment
+            List<Fragment> fragmentList = mFragmentManager.getFragments();
+            //3.将Fragment全部隐藏
+            for (Fragment fragment:fragmentList) {
+                mFragmentManager.beginTransaction().hide(fragment).commitAllowingStateLoss();
+            }
+            //4.显示对应下标的Fragment
+            mFragmentManager.beginTransaction()
+                    .show(mFragments[currentFragmentIndex])
+                    .commitAllowingStateLoss();
+            //5.设置mContent为当前Fragment
+            mContent = mFragments[currentFragmentIndex];
+        } else {
+            //代码模拟按钮的点击事件
+            rbHome.performClick();
+        }
     }
 
     /**
