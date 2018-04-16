@@ -20,6 +20,7 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity> implement
     }
 
     public void register(String username, String password, String repassword) {
+        mView.showLoading();
         mModel.register(username, password, repassword, this);
     }
 
@@ -30,6 +31,7 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity> implement
     @Override
     public void onRegisterSuccess(RegisterBean bean) {
         if (mView != null) {
+            mView.hideLoading();
             mView.onRegisterSuccess(bean);
         }
     }
@@ -37,6 +39,7 @@ public class RegisterPresenter extends BasePresenter<RegisterActivity> implement
     @Override
     public void onRegisterError() {
         if (mView != null) {
+            mView.hideLoading();
             mView.onRegisterError();
         }
     }

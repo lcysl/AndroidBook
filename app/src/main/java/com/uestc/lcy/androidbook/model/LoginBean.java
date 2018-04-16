@@ -3,15 +3,21 @@ package com.uestc.lcy.androidbook.model;
 import java.util.List;
 
 /**
- * Created by lcy on 2018\4\14 0014.
+ * Created by lcy on 2018\4\16 0016.
  */
 
-public class RegisterBean {
+public class LoginBean {
 
     /**
-     * data : {"collectIds":[],"email":"","icon":"","id":4657,"password":"1234567","type":0,"username":"18628212025"}
+     * data : {"collectIds":[],"email":"","icon":"","id":4735,"password":"123456","type":0,"username":"liuchenyang"}
      * errorCode : 0
      * errorMsg :
+     */
+
+    /**
+     * data : null
+     * errorCode : -1
+     * errorMsg : "账号密码不匹配！"
      */
 
     private DataBean data;
@@ -47,10 +53,10 @@ public class RegisterBean {
          * collectIds : []
          * email :
          * icon :
-         * id : 4657
-         * password : 1234567
+         * id : 4735
+         * password : 123456
          * type : 0
-         * username : 18628212025
+         * username : liuchenyang
          */
 
         private String email;

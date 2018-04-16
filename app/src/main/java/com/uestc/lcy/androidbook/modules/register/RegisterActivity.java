@@ -1,5 +1,6 @@
 package com.uestc.lcy.androidbook.modules.register;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.model.RegisterBean;
+import com.uestc.lcy.androidbook.modules.login.LoginActivity;
 import com.uestc.lcy.androidbook.modules.register.presenter.RegisterPresenter;
 import com.uestc.lcy.androidbook.modules.register.view.RegisterView;
 
@@ -95,7 +97,12 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
-            Toast.makeText(this, "网络请求成功", Toast.LENGTH_SHORT).show();
+            Bundle bundle = new Bundle();
+            bundle.putString("username", bean.getData().getUsername());
+            bundle.putString("password", bean.getData().getPassword());
+            Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
         }
     }
 
@@ -109,11 +116,11 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     @Override
     public void showLoading() {
-
+        super.showLoadingDialog();
     }
 
     @Override
     public void hideLoading() {
-
+        super.hideLoadingDialog();
     }
 }

@@ -8,9 +8,11 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.uestc.lcy.androidbook.R;
+import com.uestc.lcy.androidbook.component.LoadingDialogFragment;
 
 /**
- * Created by Administrator on 2018\4\12 0012.
+ * 所有Activity的基类
+ * Created by lcy on 2018\4\12 0012.
  */
 
 public abstract class BaseActivity<T extends BasePresenter> extends AppCompatActivity {
@@ -45,5 +47,22 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         mBaseLayout.addView(view);
     }
 
+    /**
+     * 显示加载进度条（利用对话框）
+     */
+    public void showLoadingDialog() {
+        LoadingDialogFragment loadingDialogFragment = new LoadingDialogFragment();
+        loadingDialogFragment.show(getFragmentManager(), "LoadingDialog");
+    }
 
+    /**
+     * 隐藏加载进度条
+     */
+    public void hideLoadingDialog() {
+        LoadingDialogFragment loadingDialogFragment =
+                (LoadingDialogFragment) getFragmentManager().findFragmentByTag("LoadingDialog");
+        if (loadingDialogFragment != null) {
+            loadingDialogFragment.dismiss();
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class HttpUtils {
      */
     private void initRetrofit() {
         mRetrofit = new Retrofit.Builder()
-                .baseUrl("http://www.wanandroid.com/")
+                .baseUrl(Api.BASE_URL)
                 .client(initOkHttpClient())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
@@ -64,7 +64,6 @@ public class HttpUtils {
      * @return 返回对应的网络接口类型
      */
     public <T> T create(Class<T> cla) {
-        //Log.i("lcy---------", "create service");
         return mRetrofit.create(cla);
     }
 
