@@ -4,6 +4,7 @@ package com.uestc.lcy.androidbook.modules.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -11,10 +12,14 @@ import android.widget.Toast;
 
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
+import com.uestc.lcy.androidbook.config.ActivityConfig;
 import com.uestc.lcy.androidbook.model.LoginBean;
+import com.uestc.lcy.androidbook.modules.MainActivity;
 import com.uestc.lcy.androidbook.modules.login.presenter.LoginPresenter;
 import com.uestc.lcy.androidbook.modules.login.view.LoginView;
 import com.uestc.lcy.androidbook.modules.register.RegisterActivity;
+
+import org.greenrobot.eventbus.EventBus;
 
 /**
  * 登录界面
@@ -37,7 +42,9 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     protected void init(Bundle savedInstanceState) {
         initView();
         initListener();
+        initData();
     }
+
 
     @Override
     protected void initPresenter() {
@@ -85,6 +92,21 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     }
 
     /**
+     * 从注册界面获得数据，并自动登录
+     */
+    private void initData() {
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        if (bundle != null) {
+            String username = bundle.getString("username");
+            String password = bundle.getString("password");
+            mUsernameEt.setText(username);
+            mPasswordEt.setText(password);
+            mLoginBtn.performClick();
+        }
+    }
+
+    /**
      * 网络请求成功后更新面板相关位置
      * @param bean
      */
@@ -93,9 +115,16 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
-            Toast.makeText(this,
-                    "登录成功，用户名："+ bean.getData().getUsername()+
-                    "密码：" + bean.getData().getPassword(), Toast.LENGTH_SHORT).show();
+            //通知我的界面刷新数据
+            EventBus.getDefault().post(bean.getData().getUsername());
+            if (ActivityConfig.getInstance().getLastActivity().equals(MainActivity.class.getName())) {
+                onBackPressed();
+            } else {
+                //从注册跳转过来的
+                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+            Log.d("LoginActivity", ActivityConfig.getInstance().getLastActivity().toString());
         }
     }
 

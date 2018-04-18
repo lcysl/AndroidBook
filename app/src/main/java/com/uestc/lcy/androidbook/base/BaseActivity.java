@@ -28,8 +28,9 @@ public abstract class BaseActivity<T extends BasePresenter> extends AppCompatAct
         //获取父布局
         mBaseLayout = findViewById(R.id.layout_base);
         initView();
-        init(savedInstanceState);
         initPresenter();
+        init(savedInstanceState);
+
     }
 
     //获取子类的布局，抽象方法，由子类实现
