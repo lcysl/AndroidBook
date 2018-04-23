@@ -6,6 +6,7 @@ import android.os.Bundle;
 
 import com.uestc.lcy.androidbook.config.ActivityConfig;
 import com.uestc.lcy.androidbook.config.AppConfig;
+import com.uestc.lcy.androidbook.config.UserConfig;
 import com.uestc.lcy.androidbook.modules.guide.GuideActivity;
 
 /**
@@ -20,6 +21,8 @@ public class AndroidBookApplication extends Application {
 
         //初始化AppConfig的sp
         AppConfig.init(this);
+        //初始化UserConfig的sp
+        UserConfig.init(this);
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {

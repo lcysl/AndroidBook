@@ -8,16 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.uestc.lcy.androidbook.R;
+import com.uestc.lcy.androidbook.base.BaseFragment;
 
 /**
  * Created by lcy on 2018\4\10 0010.
  */
 
-public class SortFragment extends Fragment {
-    @Nullable
+public class SortFragment extends BaseFragment {
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_sort, container, false);
         return view;
     }
+
+    @Override
+    protected void initPresenter() {
+
+    }
+
+
+
 }

@@ -11,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
 import com.uestc.lcy.androidbook.R;
+import com.uestc.lcy.androidbook.base.BaseFragment;
+import com.uestc.lcy.androidbook.config.UserConfig;
+import com.uestc.lcy.androidbook.model.LoginBean;
 import com.uestc.lcy.androidbook.modules.login.LoginActivity;
 
 import org.greenrobot.eventbus.EventBus;
@@ -22,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode;
  * Created by lcy on 2018\4\10 0010.
  */
 
-public class MineFragment extends Fragment {
+public class MineFragment extends BaseFragment {
 
     private LinearLayout mLlCollect;
     private LinearLayout mLlBookMark;
@@ -42,24 +46,26 @@ public class MineFragment extends Fragment {
     private TextView mUsernameTv;
 
     @Override
+    protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View view = inflater.inflate(R.layout.fragment_mine, container, false);
+        initLayout(view);
+        initView(view);
+        initData();
+        setListener();
+        return view;
+    }
+
+    @Override
+    protected void initPresenter() {
+
+    }
+
+
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EventBus.getDefault().register(this);
     }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_mine, container, false);
-
-        initLayout(view);
-        initView(view);
-        setListener();
-
-        return view;
-    }
-
-
 
 
     /**
@@ -97,6 +103,18 @@ public class MineFragment extends Fragment {
         ivSettingIcon.setImageResource(R.drawable.mine_setting);
         tvSettingTitle.setText(R.string.mine_setting);
     }
+
+
+    private void initData() {
+        String userInfo = UserConfig.getInstance().getString("userInfo", null);
+        if (userInfo != null) {
+            Gson gson = new Gson();
+            LoginBean.DataBean bean = gson.fromJson(userInfo, LoginBean.DataBean.class);
+            mUsernameTv.setText(bean.getUsername());
+        }
+    }
+
+
 
     private void setListener() {
         //点击头像显示登录界面

@@ -7,4 +7,5 @@ package com.uestc.lcy.androidbook.constant;
 
 public class App {
     public final static String APP_CONFIG = "appConfig";
+    public final static String USER_CONFIG = "userConfig";
 }

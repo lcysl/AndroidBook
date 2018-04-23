@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.config.ActivityConfig;
@@ -124,7 +125,6 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                 startActivity(intent);
             }
-            Log.d("LoginActivity", ActivityConfig.getInstance().getLastActivity().toString());
         }
     }
 

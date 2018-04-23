@@ -1,5 +1,6 @@
 package com.uestc.lcy.androidbook.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -48,7 +49,7 @@ public class LoginBean {
         this.errorMsg = errorMsg;
     }
 
-    public static class DataBean {
+    public static class DataBean implements Serializable{
         /**
          * collectIds : []
          * email :
