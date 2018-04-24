@@ -58,4 +58,10 @@ public class UserConfig {
     public int getInt(String key, int defValue) {
         return sharedPreferences.getInt(key, defValue);
     }
+
+    public void clear() {
+        editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
+    }
 }

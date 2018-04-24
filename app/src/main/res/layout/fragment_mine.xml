@@ -46,7 +46,15 @@
             android:id="@+id/mine_setting"
             layout="@layout/mine_list_layout"/>
 
+        <Button
+            android:id="@+id/btn_unlogin"
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:text="退出登录"
+            android:layout_gravity="center_horizontal"/>
 
     </LinearLayout>
+
+
 
 </LinearLayout>
