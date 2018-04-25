@@ -21,15 +21,15 @@ public class ArticleListModel {
     public void loadArticleList(int page ,final ArticleListCallback callback) {
         ArticleListService articleListService = HttpUtils.getInstance().create(ArticleListService.class);
         articleListService.loadArticleList(page)
-                .enqueue(new Callback<ArticleListService>() {
+                .enqueue(new Callback<ArticleListBean>() {
                     @Override
-                    public void onResponse(Call<ArticleListService> call, Response<ArticleListService> response) {
-                        ArticleListBean bean = (ArticleListBean) response.body();
+                    public void onResponse(Call<ArticleListBean> call, Response<ArticleListBean> response) {
+                        ArticleListBean bean = response.body();
                         callback.onLoadArticleListSuccess(bean);
                     }
 
                     @Override
-                    public void onFailure(Call<ArticleListService> call, Throwable t) {
+                    public void onFailure(Call<ArticleListBean> call, Throwable t) {
                         callback.onLoadArticleListError();
                     }
                 });

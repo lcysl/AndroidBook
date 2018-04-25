@@ -17,18 +17,51 @@ import java.util.List;
  */
 
 public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.ViewHolder> {
+
+    private static final int TYPE_NORMAL = 0;
+    private static final int TYPE_FOOTER = 1;
+
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
 
     public ArticleListAdapter(List<ArticleListBean.DataBean.DatasBean> datas) {
         this.mDatas = datas;
     }
 
+
+    @Override
+    public int getItemCount() {
+        if (mDatas.size() > 0) {
+            return mDatas.size() + 1;
+        }
+        return 0;
+    }
+
+    @Override
+    public int getItemViewType(int position) {
+        if (position >= mDatas.size()) {
+            return TYPE_FOOTER;
+        }
+        return TYPE_NORMAL;
+    }
+
+    /**
+     * 根据不同的类型返回不同的布局
+     * @param parent
+     * @param viewType
+     * @return
+     */
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_article_list, parent, false);
-        ViewHolder viewHolder = new ViewHolder(view);
-        return viewHolder;
+        if (viewType == TYPE_FOOTER) {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_article_list_footer, parent, false);
+            return new ViewHolder(view);
+        } else {
+            View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_article_list, parent, false);
+            ViewHolder viewHolder = new ViewHolder(view);
+            return viewHolder;
+        }
+
     }
 
     @Override
@@ -41,10 +74,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         holder.mChapterNameTv.setText(data.getChapterName());
     }
 
-    @Override
-    public int getItemCount() {
-        return mDatas.size();
-    }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
