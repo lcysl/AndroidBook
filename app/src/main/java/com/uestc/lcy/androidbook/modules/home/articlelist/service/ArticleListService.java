@@ -1,4 +1,4 @@
-package com.uestc.lcy.androidbook.modules.home.service;
+package com.uestc.lcy.androidbook.modules.home.articlelist.service;
 
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 

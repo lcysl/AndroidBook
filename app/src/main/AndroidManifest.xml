@@ -26,6 +26,7 @@
         <activity android:name=".modules.login.LoginActivity"/>
         <activity android:name=".modules.register.RegisterActivity"/>
         <activity android:name=".modules.userinfo.UserInfoActivity"/>
+        <activity android:name=".modules.home.articlecontent.ArticleContentActivity"/>
     </application>
 
 </manifest>

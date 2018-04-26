@@ -1,8 +1,8 @@
-package com.uestc.lcy.androidbook.modules.home.model;
+package com.uestc.lcy.androidbook.modules.home.articlelist.model;
 
 import com.uestc.lcy.androidbook.model.ArticleListBean;
-import com.uestc.lcy.androidbook.modules.home.callback.ArticleListCallback;
-import com.uestc.lcy.androidbook.modules.home.service.ArticleListService;
+import com.uestc.lcy.androidbook.modules.home.articlelist.callback.ArticleListCallback;
+import com.uestc.lcy.androidbook.modules.home.articlelist.service.ArticleListService;
 import com.uestc.lcy.androidbook.utils.HttpUtils;
 
 import retrofit2.Call;

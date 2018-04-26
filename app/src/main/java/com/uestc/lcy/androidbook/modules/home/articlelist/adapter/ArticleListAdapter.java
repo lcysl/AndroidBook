@@ -1,4 +1,4 @@
-package com.uestc.lcy.androidbook.modules.home.adapter;
+package com.uestc.lcy.androidbook.modules.home.articlelist.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -23,10 +23,20 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     //获取从fragment中传递过来的每个item的数据集合
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
 
+    //事件回调监听
+    private OnItemClickListener mOnItemClickListener;
+
     public ArticleListAdapter(List<ArticleListBean.DataBean.DatasBean> datas) {
         this.mDatas = datas;
     }
 
+    /**
+     * 设置回调监听
+     * @param listener
+     */
+    public void setOnItemClickListener(OnItemClickListener listener) {
+        this.mOnItemClickListener = listener;
+    }
 
     @Override
     public int getItemCount() {
@@ -65,15 +75,25 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, int position) {
         //绑定数据
         if (getItemViewType(position) == TYPE_NORMAL) {
             if (holder instanceof ViewHolder) {
-                ArticleListBean.DataBean.DatasBean data = mDatas.get(position);
+                final ArticleListBean.DataBean.DatasBean data = mDatas.get(position);
                 holder.mAuthorTv.setText(data.getAuthor());
                 holder.mNiceDateTv.setText(data.getNiceDate());
                 holder.mTitleTv.setText(data.getTitle());
                 holder.mChapterNameTv.setText(data.getChapterName());
+
+                ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mOnItemClickListener != null) {
+                            int pos = holder.getLayoutPosition();
+                            mOnItemClickListener.onItemClick(((ViewHolder) holder).itemView, pos, data);
+                        }
+                    }
+                });
                 return;
             }
             return;
@@ -97,5 +117,12 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             mTitleTv = itemView.findViewById(R.id.tv_title);
             mChapterNameTv = itemView.findViewById(R.id.tv_chapterName);
         }
+    }
+
+    /**
+     * 点击事件的回调接口
+     */
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position, ArticleListBean.DataBean.DatasBean bean);
     }
 }

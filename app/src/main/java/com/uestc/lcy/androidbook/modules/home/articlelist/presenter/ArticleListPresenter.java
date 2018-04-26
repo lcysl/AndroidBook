@@ -1,10 +1,10 @@
-package com.uestc.lcy.androidbook.modules.home.presenter;
+package com.uestc.lcy.androidbook.modules.home.articlelist.presenter;
 
 import com.uestc.lcy.androidbook.base.BasePresenter;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 import com.uestc.lcy.androidbook.modules.home.HomeFragment;
-import com.uestc.lcy.androidbook.modules.home.callback.ArticleListCallback;
-import com.uestc.lcy.androidbook.modules.home.model.ArticleListModel;
+import com.uestc.lcy.androidbook.modules.home.articlelist.callback.ArticleListCallback;
+import com.uestc.lcy.androidbook.modules.home.articlelist.model.ArticleListModel;
 
 /**
  * Created by Administrator on 2018\4\24 0024.

@@ -12,7 +12,7 @@ import android.util.AttributeSet;
 
 public class ArticleListRecyclerView extends RecyclerView {
 
-    private LoadMoreListener mLoadMoreListener;
+    private OnLoadMoreListener mOnLoadMoreListener;
 
     public ArticleListRecyclerView(Context context) {
         this(context, null);
@@ -26,8 +26,8 @@ public class ArticleListRecyclerView extends RecyclerView {
         super(context, attrs, defStyle);
     }
 
-    public void setOnLoadMoreListener(LoadMoreListener loadMoreListener) {
-        this.mLoadMoreListener = loadMoreListener;
+    public void setOnLoadMoreListener(OnLoadMoreListener onLoadMoreListener) {
+        this.mOnLoadMoreListener = onLoadMoreListener;
     }
 
     @Override
@@ -42,14 +42,14 @@ public class ArticleListRecyclerView extends RecyclerView {
             if (layoutManager.getChildCount() > 0    //当前显示的item数量>0
                     &&lastVisiblePosition>=layoutManager.getItemCount() - 1           //当前屏幕最后一个加载项位置>=所有item的数量
                     &&layoutManager.getItemCount() > layoutManager.getChildCount()) { // 当前总Item数大于可见Item数
-                if (mLoadMoreListener!=null){
-                    mLoadMoreListener.onLoadMore();
+                if (mOnLoadMoreListener !=null){
+                    mOnLoadMoreListener.onLoadMore();
                 }
             }
         }
     }
 
-    public interface LoadMoreListener {
+    public interface OnLoadMoreListener {
         void onLoadMore();
     }
 }
