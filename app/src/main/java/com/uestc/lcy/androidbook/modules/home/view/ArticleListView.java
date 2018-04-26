@@ -10,4 +10,5 @@ import com.uestc.lcy.androidbook.model.ArticleListBean;
 public interface ArticleListView extends BaseView{
     void onLoadArticleListSuccess(ArticleListBean bean);
     void onLoadArticleListError();
+    void onLoadMoreArticleListSuccess(ArticleListBean bean);
 }

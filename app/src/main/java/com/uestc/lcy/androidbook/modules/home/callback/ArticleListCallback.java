@@ -9,4 +9,5 @@ import com.uestc.lcy.androidbook.model.ArticleListBean;
 public interface ArticleListCallback {
     void onLoadArticleListSuccess(ArticleListBean bean);
     void onLoadArticleListError();
+    void onLoadMoreArticleListSuccess(ArticleListBean bean);
 }

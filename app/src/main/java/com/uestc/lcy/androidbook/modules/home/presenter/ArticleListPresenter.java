@@ -38,4 +38,13 @@ public class ArticleListPresenter extends BasePresenter<HomeFragment> implements
             mView.onLoadArticleListError();
         }
     }
+
+    @Override
+    public void onLoadMoreArticleListSuccess(ArticleListBean bean) {
+        if (mView != null) {
+            mView.hideLoading();
+            mView.onLoadMoreArticleListSuccess(bean);
+        }
+    }
+
 }

@@ -18,14 +18,19 @@ public class ArticleListModel {
      * 加载文章列表
      * @param page
      */
-    public void loadArticleList(int page ,final ArticleListCallback callback) {
+    public void loadArticleList(final int page , final ArticleListCallback callback) {
         ArticleListService articleListService = HttpUtils.getInstance().create(ArticleListService.class);
         articleListService.loadArticleList(page)
                 .enqueue(new Callback<ArticleListBean>() {
                     @Override
                     public void onResponse(Call<ArticleListBean> call, Response<ArticleListBean> response) {
                         ArticleListBean bean = response.body();
-                        callback.onLoadArticleListSuccess(bean);
+                        if (page == 0) {
+                            callback.onLoadArticleListSuccess(bean);
+                        } else {
+                            callback.onLoadMoreArticleListSuccess(bean);
+                        }
+
                     }
 
                     @Override

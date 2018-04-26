@@ -20,7 +20,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private static final int TYPE_NORMAL = 0;
     private static final int TYPE_FOOTER = 1;
-
+    //获取从fragment中传递过来的每个item的数据集合
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
 
     public ArticleListAdapter(List<ArticleListBean.DataBean.DatasBean> datas) {
@@ -67,11 +67,19 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         //绑定数据
-        ArticleListBean.DataBean.DatasBean data = mDatas.get(position);
-        holder.mAuthorTv.setText(data.getAuthor());
-        holder.mNiceDateTv.setText(data.getNiceDate());
-        holder.mTitleTv.setText(data.getTitle());
-        holder.mChapterNameTv.setText(data.getChapterName());
+        if (getItemViewType(position) == TYPE_NORMAL) {
+            if (holder instanceof ViewHolder) {
+                ArticleListBean.DataBean.DatasBean data = mDatas.get(position);
+                holder.mAuthorTv.setText(data.getAuthor());
+                holder.mNiceDateTv.setText(data.getNiceDate());
+                holder.mTitleTv.setText(data.getTitle());
+                holder.mChapterNameTv.setText(data.getChapterName());
+                return;
+            }
+            return;
+        } else {
+            return;
+        }
     }
 
 
