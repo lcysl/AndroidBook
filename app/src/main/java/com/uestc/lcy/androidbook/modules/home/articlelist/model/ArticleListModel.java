@@ -1,8 +1,12 @@
 package com.uestc.lcy.androidbook.modules.home.articlelist.model;
 
+import android.util.Log;
+
 import com.uestc.lcy.androidbook.model.ArticleListBean;
+import com.uestc.lcy.androidbook.model.BannerBean;
 import com.uestc.lcy.androidbook.modules.home.articlelist.callback.ArticleListCallback;
 import com.uestc.lcy.androidbook.modules.home.articlelist.service.ArticleListService;
+import com.uestc.lcy.androidbook.modules.home.articlelist.service.BannerService;
 import com.uestc.lcy.androidbook.utils.HttpUtils;
 
 import retrofit2.Call;
@@ -36,6 +40,27 @@ public class ArticleListModel {
                     @Override
                     public void onFailure(Call<ArticleListBean> call, Throwable t) {
                         callback.onLoadArticleListError();
+                    }
+                });
+    }
+
+    /**
+     * 加载banner
+     */
+    public void loadBanner(final ArticleListCallback callback) {
+        BannerService bannerService = HttpUtils.getInstance().create(BannerService.class);
+        bannerService.loadBanner()
+                .enqueue(new Callback<BannerBean>() {
+                    @Override
+                    public void onResponse(Call<BannerBean> call, Response<BannerBean> response) {
+                        BannerBean bean = response.body();
+                        callback.onLoadBannerSuccess(bean);
+                        Log.d("---lcy---", "onLoadBannerSuccess");
+                    }
+
+                    @Override
+                    public void onFailure(Call<BannerBean> call, Throwable t) {
+                        callback.onLoadBannerError();
                     }
                 });
     }

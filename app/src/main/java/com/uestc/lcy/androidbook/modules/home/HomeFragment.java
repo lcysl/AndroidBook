@@ -8,17 +8,21 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseFragment;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
+import com.uestc.lcy.androidbook.model.BannerBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
 import com.uestc.lcy.androidbook.modules.home.articlecontent.ArticleContentActivity;
 import com.uestc.lcy.androidbook.modules.home.articlelist.adapter.ArticleListAdapter;
+import com.uestc.lcy.androidbook.modules.home.articlelist.imageloader.GlideImageLoader;
 import com.uestc.lcy.androidbook.modules.home.articlelist.presenter.ArticleListPresenter;
 import com.uestc.lcy.androidbook.modules.home.articlelist.view.ArticleListView;
 import com.uestc.lcy.androidbook.views.ArticleListRecyclerView;
+import com.youth.banner.Banner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +43,8 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     private RecyclerView.LayoutManager mLayoutManager;
 
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
+    private Banner mBanner;
+
 
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -55,12 +61,14 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         mRecyclerView = view.findViewById(R.id.rv_article_list);
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
+
     }
 
 
     private void initData() {
         //调用P层的网络请求方法
         mPresenter.loadArticleList(mPage);
+
     }
 
     private void setListener() {
@@ -90,12 +98,15 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     //将网络请求得到的数据显示到列表中
     @Override
     public void onLoadArticleListSuccess(ArticleListBean bean) {
-        mDatas = new ArrayList<>(bean.getData().getDatas());
-        mAdapter = new ArticleListAdapter(mDatas);
-
-        mAdapter.setOnItemClickListener(this);
-
-        mRecyclerView.setAdapter(mAdapter);
+        if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
+            Toast.makeText(mActivity, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        } else if (bean.getErrorCode() == 0 && bean.getData() != null){
+            mDatas = new ArrayList<>(bean.getData().getDatas());
+            mAdapter = new ArticleListAdapter(mDatas);
+            mAdapter.setOnItemClickListener(this);
+            mRecyclerView.setAdapter(mAdapter);
+        }
+        mPresenter.loadBanner();
     }
 
     @Override
@@ -105,19 +116,48 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
 
     @Override
     public void onLoadMoreArticleListSuccess(ArticleListBean bean) {
-        mDatas.addAll(bean.getData().getDatas());
+        if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
+            Toast.makeText(mActivity, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        } else if (bean.getErrorCode() == 0 && bean.getData() != null){
+            mDatas.addAll(bean.getData().getDatas());
+            mAdapter.notifyDataSetChanged();
+        }
+    }
+
+    /**
+     * 网络请求成功后，将图片设置给banner
+     * @param bean
+     */
+    @Override
+    public void onLoadBannerSuccess(BannerBean bean) {
+        //渲染header的布局
+        View header = LayoutInflater.from(mActivity).inflate(R.layout.item_banner, mRecyclerView, false);
+        mBanner = header.findViewById(R.id.banner);
+        //配置banner
+        mBanner.setImageLoader(new GlideImageLoader());
+        mBanner.setImages(getImages(bean));
+        mBanner.start();
+        //把hearView设置给adapter
+        mAdapter.setHeaderView(header);
+        //刷新adapter
         mAdapter.notifyDataSetChanged();
+        Toast.makeText(mActivity, "网络请求banner成功", Toast.LENGTH_SHORT).show();
+    }
+
+    private List<String> getImages(BannerBean bean) {
+        List<BannerBean.DataBean> list = bean.getData();
+        List<String> images = new ArrayList<>();
+        for (BannerBean.DataBean data : list) {
+            images.add(data.getImagePath());
+        }
+        return images;
     }
 
     @Override
-    public void showLoading() {
-        super.showLoadingDialog();
+    public void onLoadBannerError() {
+        Toast.makeText(mActivity, "网络请求失败", Toast.LENGTH_SHORT).show();
     }
 
-    @Override
-    public void hideLoading() {
-        super.hideLoadingDialog();
-    }
 
     @Override
     public void onLoadMore() {
@@ -127,13 +167,25 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
 
 
     @Override
-    public void onItemClick(View view, int position, ArticleListBean.DataBean.DatasBean bean) {
+    public void onItemClick(View view, int position, List<ArticleListBean.DataBean.DatasBean> datas) {
         //将网址信息传递给ArticleContentActivity进行加载
+        ArticleListBean.DataBean.DatasBean bean = datas.get(position);
         Bundle bundle = new Bundle();
         bundle.putString("url", bean.getLink());
         bundle.putString("title", bean.getTitle());
         Intent intent = new Intent(mActivity, ArticleContentActivity.class);
         intent.putExtras(bundle);
         startActivity(intent);
+    }
+
+
+    @Override
+    public void showLoading() {
+        super.showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        super.hideLoadingDialog();
     }
 }
