@@ -3,6 +3,8 @@ package com.uestc.lcy.androidbook.modules.home;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,20 +34,32 @@ import java.util.List;
  */
 
 public class HomeFragment extends BaseFragment<ArticleListPresenter> implements ArticleListView,
-        ArticleListRecyclerView.OnLoadMoreListener, ArticleListAdapter.OnItemClickListener{
+        ArticleListRecyclerView.OnLoadMoreListener, ArticleListAdapter.OnItemClickListener,
+        SwipeRefreshLayout.OnRefreshListener{
 
+    /*context*/
     private MainActivity mActivity;
-
+    /*定义文章列表的页码数*/
     private int mPage = 0;
-
+    /*列表刷新*/
+    private Handler mHandler;
+    private SwipeRefreshLayout mSwipeRefreshLayout;
+    /*RecyclerView相关*/
     private ArticleListRecyclerView mRecyclerView;
     private ArticleListAdapter mAdapter;
     private RecyclerView.LayoutManager mLayoutManager;
-
-    private List<ArticleListBean.DataBean.DatasBean> mDatas;
+    /*首页banner*/
     private Banner mBanner;
+    /*列表项的内容*/
+    private List<ArticleListBean.DataBean.DatasBean> mDatas;
 
-
+    /**
+     * 实现父类的抽象方法，相当于OnCreateView
+     * @param inflater
+     * @param container
+     * @param savedInstanceState
+     * @return
+     */
     @Override
     protected View createView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
@@ -55,38 +69,46 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         return view;
     }
 
+    /**
+     * 实现父类的抽象方法，初始化Presenter
+     */
+    @Override
+    protected void initPresenter() {
+        mPresenter = new ArticleListPresenter();
+        mPresenter.attachView(this);
+    }
 
-
+    /**
+     * 初始化控件
+     * @param view
+     */
     private void initView(View view) {
+        mSwipeRefreshLayout = view.findViewById(R.id.srl_article_list);
         mRecyclerView = view.findViewById(R.id.rv_article_list);
         mLayoutManager = new LinearLayoutManager(mActivity, LinearLayoutManager.VERTICAL, false);
         mRecyclerView.setLayoutManager(mLayoutManager);
-
     }
 
-
+    /**
+     * 初始化数据
+     */
     private void initData() {
         //调用P层的网络请求方法
         mPresenter.loadArticleList(mPage);
-
     }
 
+    /**
+     * 设置事件监听
+     */
     private void setListener() {
+        mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
-
     }
-
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
         mActivity = (MainActivity) context;
-    }
-
-    @Override
-    protected void initPresenter() {
-        mPresenter = new ArticleListPresenter();
-        mPresenter.attachView(this);
     }
 
     @Override
@@ -187,5 +209,16 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     @Override
     public void hideLoading() {
         super.hideLoadingDialog();
+    }
+
+    @Override
+    public void onRefresh() {
+        mHandler = new Handler();
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        }, 2000);
     }
 }
