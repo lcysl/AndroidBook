@@ -128,6 +128,7 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
             mAdapter.setOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
         }
+        //首页列表请求成功后再请求banner
         mPresenter.loadBanner();
     }
 
