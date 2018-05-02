@@ -10,7 +10,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.uestc.lcy.androidbook.R;
@@ -18,11 +17,11 @@ import com.uestc.lcy.androidbook.base.BaseFragment;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 import com.uestc.lcy.androidbook.model.BannerBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
-import com.uestc.lcy.androidbook.modules.home.articlecontent.ArticleContentActivity;
-import com.uestc.lcy.androidbook.modules.home.articlelist.adapter.ArticleListAdapter;
-import com.uestc.lcy.androidbook.modules.home.articlelist.imageloader.GlideImageLoader;
-import com.uestc.lcy.androidbook.modules.home.articlelist.presenter.ArticleListPresenter;
-import com.uestc.lcy.androidbook.modules.home.articlelist.view.ArticleListView;
+import com.uestc.lcy.androidbook.modules.home.article_content.ArticleContentActivity;
+import com.uestc.lcy.androidbook.modules.home.article_list.adapter.ArticleListAdapter;
+import com.uestc.lcy.androidbook.modules.home.article_list.imageloader.GlideImageLoader;
+import com.uestc.lcy.androidbook.modules.home.article_list.presenter.ArticleListPresenter;
+import com.uestc.lcy.androidbook.modules.home.article_list.view.ArticleListView;
 import com.uestc.lcy.androidbook.views.ArticleListRecyclerView;
 import com.youth.banner.Banner;
 
@@ -164,7 +163,6 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         mAdapter.setHeaderView(header);
         //刷新adapter
         mAdapter.notifyDataSetChanged();
-        Toast.makeText(mActivity, "网络请求banner成功", Toast.LENGTH_SHORT).show();
     }
 
     private List<String> getImages(BannerBean bean) {

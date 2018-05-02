@@ -25,8 +25,10 @@
         <activity android:name=".modules.guide.GuideActivity"/>
         <activity android:name=".modules.login.LoginActivity"/>
         <activity android:name=".modules.register.RegisterActivity"/>
-        <activity android:name=".modules.userinfo.UserInfoActivity"/>
-        <activity android:name=".modules.home.articlecontent.ArticleContentActivity"/>
+        <activity android:name=".modules.user_info.UserInfoActivity"/>
+        <activity android:name=".modules.home.article_content.ArticleContentActivity"/>
+        <activity android:name=".modules.sort.knowledge_system.activity.ChildSystemActivity"/>
+        <activity android:name=".modules.sort.knowledge_system.activity.ChildArticleListActivity"/>
     </application>
 
 </manifest>

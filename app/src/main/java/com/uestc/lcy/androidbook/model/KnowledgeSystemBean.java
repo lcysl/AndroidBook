@@ -1,5 +1,6 @@
 package com.uestc.lcy.androidbook.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
@@ -117,7 +118,7 @@ public class KnowledgeSystemBean {
             this.children = children;
         }
 
-        public static class ChildrenBean {
+        public static class ChildrenBean implements Serializable{
             /**
              * children : []
              * courseId : 13

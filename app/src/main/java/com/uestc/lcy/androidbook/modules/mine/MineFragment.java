@@ -1,12 +1,9 @@
 package com.uestc.lcy.androidbook.modules.mine;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +19,7 @@ import com.uestc.lcy.androidbook.config.UserConfig;
 import com.uestc.lcy.androidbook.model.LoginBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
 import com.uestc.lcy.androidbook.modules.login.LoginActivity;
-import com.uestc.lcy.androidbook.modules.userinfo.UserInfoActivity;
+import com.uestc.lcy.androidbook.modules.user_info.UserInfoActivity;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
