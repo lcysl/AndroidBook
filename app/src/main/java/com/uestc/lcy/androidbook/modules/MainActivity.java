@@ -1,10 +1,12 @@
 package com.uestc.lcy.androidbook.modules;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -12,6 +14,7 @@ import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.modules.home.HomeFragment;
 import com.uestc.lcy.androidbook.modules.mine.MineFragment;
+import com.uestc.lcy.androidbook.modules.navigate.NavigateActivity;
 import com.uestc.lcy.androidbook.modules.sort.SortFragment;
 
 import java.util.List;
@@ -23,6 +26,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private Fragment[] mFragments;
     private Fragment mContent;
     private int currentFragmentIndex = 0;
+    private Button mNavigateBtn;
 
     /**
      * 获取子类的布局
@@ -95,6 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbHome = findViewById(R.id.rb_main_home);
         rbSort = findViewById(R.id.rb_main_sort);
         rbMy = findViewById(R.id.rb_main_mine);
+        mNavigateBtn = findViewById(R.id.btn_navigate);
     }
 
     /**
@@ -120,6 +125,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbHome.setOnClickListener(this);
         rbSort.setOnClickListener(this);
         rbMy.setOnClickListener(this);
+        mNavigateBtn.setOnClickListener(this);
     }
 
     @Override
@@ -140,6 +146,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 switchFragment(mFragments[currentFragmentIndex], mFragments[2]);
                 topBarTitle.setText(getString(R.string.main_my));
                 currentFragmentIndex = 2;
+                break;
+            case R.id.btn_navigate:
+                Intent intent = new Intent(this, NavigateActivity.class);
+                startActivity(intent);
                 break;
             default:
                 break;

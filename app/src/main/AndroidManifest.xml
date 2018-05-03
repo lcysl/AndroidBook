@@ -29,6 +29,7 @@
         <activity android:name=".modules.home.article_content.ArticleContentActivity"/>
         <activity android:name=".modules.sort.knowledge_system.activity.ChildSystemActivity"/>
         <activity android:name=".modules.sort.knowledge_system.activity.ChildArticleListActivity"/>
+        <activity android:name=".modules.navigate.NavigateActivity"/>
     </application>
 
 </manifest>

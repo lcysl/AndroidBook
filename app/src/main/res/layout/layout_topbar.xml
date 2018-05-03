@@ -28,10 +28,10 @@
             android:orientation="horizontal">
 
             <Button
-                android:id="@+id/btn_hot"
+                android:id="@+id/btn_navigate"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/topbar_hot"
+                android:background="@drawable/topbar_navi"
                 android:layout_marginRight="20dp"/>
 
             <Button
