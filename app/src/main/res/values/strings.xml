@@ -4,6 +4,7 @@
     <string name="main_home">首页</string>
     <string name="main_sort">知识体系</string>
     <string name="main_my">我的</string>
+    <string name="main_project">项目</string>
 
     <string name="mine_collect">我的收藏</string>
     <string name="mine_book_mark">我的书签</string>

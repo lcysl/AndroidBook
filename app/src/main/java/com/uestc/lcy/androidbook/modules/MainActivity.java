@@ -2,7 +2,6 @@ package com.uestc.lcy.androidbook.modules;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
@@ -15,14 +14,15 @@ import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.modules.home.HomeFragment;
 import com.uestc.lcy.androidbook.modules.mine.MineFragment;
 import com.uestc.lcy.androidbook.modules.navigate.NavigateActivity;
-import com.uestc.lcy.androidbook.modules.sort.SortFragment;
+import com.uestc.lcy.androidbook.modules.knowledge_system.KnowledgeSystemFragment;
+import com.uestc.lcy.androidbook.modules.project.ProjectFragment;
 
 import java.util.List;
 
 public class MainActivity extends BaseActivity implements View.OnClickListener{
 
     private FragmentManager mFragmentManager;
-    private RadioButton rbHome, rbSort,rbMy;
+    private RadioButton rbHome, rbSort,rbMy, rbProject;
     private Fragment[] mFragments;
     private Fragment mContent;
     private int currentFragmentIndex = 0;
@@ -99,6 +99,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbHome = findViewById(R.id.rb_main_home);
         rbSort = findViewById(R.id.rb_main_sort);
         rbMy = findViewById(R.id.rb_main_mine);
+        rbProject = findViewById(R.id.rb_main_project);
         mNavigateBtn = findViewById(R.id.btn_navigate);
     }
 
@@ -106,18 +107,22 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
      * 初始化mFragments的值
      */
     private void initData() {
-        mFragments = new Fragment[3];
+        mFragments = new Fragment[4];
         mFragments[0] = mFragmentManager.findFragmentByTag(HomeFragment.class.getName());
-        mFragments[1] = mFragmentManager.findFragmentByTag(SortFragment.class.getName());
-        mFragments[2] = mFragmentManager.findFragmentByTag(MineFragment.class.getName());
+        mFragments[1] = mFragmentManager.findFragmentByTag(KnowledgeSystemFragment.class.getName());
+        mFragments[2] = mFragmentManager.findFragmentByTag(ProjectFragment.class.getName());
+        mFragments[3] = mFragmentManager.findFragmentByTag(MineFragment.class.getName());
         if (mFragments[0] == null) {
             mFragments[0] = new HomeFragment();
         }
         if (mFragments[1] == null) {
-            mFragments[1] = new SortFragment();
+            mFragments[1] = new KnowledgeSystemFragment();
         }
         if (mFragments[2] == null) {
-            mFragments[2] = new MineFragment();
+            mFragments[2] = new ProjectFragment();
+        }
+        if (mFragments[3] == null) {
+            mFragments[3] = new MineFragment();
         }
     }
 
@@ -125,6 +130,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbHome.setOnClickListener(this);
         rbSort.setOnClickListener(this);
         rbMy.setOnClickListener(this);
+        rbProject.setOnClickListener(this);
         mNavigateBtn.setOnClickListener(this);
     }
 
@@ -142,10 +148,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
                 topBarTitle.setText(getString(R.string.main_sort));
                 currentFragmentIndex = 1;
                 break;
-            case R.id.rb_main_mine:
+            case R.id.rb_main_project:
                 switchFragment(mFragments[currentFragmentIndex], mFragments[2]);
-                topBarTitle.setText(getString(R.string.main_my));
+                topBarTitle.setText(getString(R.string.main_project));
                 currentFragmentIndex = 2;
+                break;
+            case R.id.rb_main_mine:
+                switchFragment(mFragments[currentFragmentIndex], mFragments[3]);
+                topBarTitle.setText(getString(R.string.main_my));
+                currentFragmentIndex = 3;
                 break;
             case R.id.btn_navigate:
                 Intent intent = new Intent(this, NavigateActivity.class);

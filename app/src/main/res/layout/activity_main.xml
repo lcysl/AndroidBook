@@ -53,6 +53,12 @@
                     android:text="@string/main_sort"
                     />
 
+                <RadioButton
+                    android:id="@+id/rb_main_project"
+                    style="@style/tab_radio_button"
+                    android:drawableTop="@drawable/main_project_icon"
+                    android:text="@string/main_project"
+                    />
 
                 <RadioButton
                     android:id="@+id/rb_main_mine"
