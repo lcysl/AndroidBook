@@ -4,7 +4,7 @@ import com.uestc.lcy.androidbook.base.BasePresenter;
 import com.uestc.lcy.androidbook.model.ProjectSortBean;
 import com.uestc.lcy.androidbook.modules.project.ProjectFragment;
 import com.uestc.lcy.androidbook.modules.project.callback.ProjectSortCallback;
-import com.uestc.lcy.androidbook.modules.project.model.ProjectSortModel;
+import com.uestc.lcy.androidbook.modules.project.model.ProjectModel;
 
 /**
  * Created by lcy on 2018\5\4 0004.
@@ -12,10 +12,10 @@ import com.uestc.lcy.androidbook.modules.project.model.ProjectSortModel;
 
 public class ProjectSortPresenter extends BasePresenter<ProjectFragment> implements ProjectSortCallback{
 
-    private ProjectSortModel mModel;
+    private ProjectModel mModel;
 
     public ProjectSortPresenter() {
-        mModel = new ProjectSortModel();
+        mModel = new ProjectModel();
     }
 
     public void loadProjectSort() {

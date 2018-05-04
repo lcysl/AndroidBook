@@ -7,10 +7,11 @@
     <include
         layout="@layout/layout_topbar2"/>
 
-    <android.support.v7.widget.RecyclerView
+    <com.uestc.lcy.androidbook.views.ArticleListRecyclerView
+        android:id="@+id/rv_project_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </android.support.v7.widget.RecyclerView>
+    </com.uestc.lcy.androidbook.views.ArticleListRecyclerView>
 
 </LinearLayout>
