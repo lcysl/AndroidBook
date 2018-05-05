@@ -9,11 +9,11 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="@color/colorPrimary"
+        android:background="#cd919a"
         android:gravity="center"
         android:orientation="vertical">
 
-        <ImageView
+        <com.uestc.lcy.androidbook.views.CircleImageView
             android:id="@+id/iv_avatar"
             android:layout_width="70dp"
             android:layout_height="70dp"

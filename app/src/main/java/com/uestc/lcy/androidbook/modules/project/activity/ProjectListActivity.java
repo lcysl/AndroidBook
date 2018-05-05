@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.model.ProjectListBean;
+import com.uestc.lcy.androidbook.modules.home.article_content.ArticleContentActivity;
 import com.uestc.lcy.androidbook.modules.project.adapter.ProjectListAdapter;
 import com.uestc.lcy.androidbook.modules.project.presenter.ProjectListPresenter;
 import com.uestc.lcy.androidbook.modules.project.view.ProjectListView;
@@ -24,7 +25,7 @@ import java.util.List;
  */
 
 public class ProjectListActivity extends BaseActivity<ProjectListPresenter> implements
-        ProjectListView, ArticleListRecyclerView.OnLoadMoreListener{
+        ProjectListView, ArticleListRecyclerView.OnLoadMoreListener, ProjectListAdapter.OnItemClickListener{
 
     /*标题栏*/
     private Button mBackBtn;
@@ -101,6 +102,7 @@ public class ProjectListActivity extends BaseActivity<ProjectListPresenter> impl
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
             mDatas = bean.getData().getDatas();
             mAdapter = new ProjectListAdapter(mDatas, this);
+            mAdapter.setOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
         }
     }
@@ -129,6 +131,17 @@ public class ProjectListActivity extends BaseActivity<ProjectListPresenter> impl
         //获取页码和上一级的id，调用P层的网络请求
         int cid = bundle.getInt("id");
         mPresenter.loadProjectList(mPage, cid);
+    }
+
+    @Override
+    public void onItemClick(View view, int position, List<ProjectListBean.DataBean.DatasBean> datas) {
+        ProjectListBean.DataBean.DatasBean bean = datas.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", bean.getLink());
+        bundle.putString("title", bean.getTitle());
+        Intent intent = new Intent(this, ArticleContentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 
     @Override

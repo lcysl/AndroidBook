@@ -29,6 +29,12 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
         this.mContext = context;
     }
 
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -37,7 +43,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             ProjectListBean.DataBean.DatasBean data = mDatas.get(position);
             holder.mTitleTv.setText(data.getTitle());
@@ -47,6 +53,14 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
             Glide.with(mContext).load(data.getEnvelopePic()).into(holder.mPicIv);
 
+            ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(((ViewHolder) holder).itemView, position, mDatas);
+                    }
+                }
+            });
             return;
         }
     }
@@ -70,5 +84,12 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
             mAuthorTv = itemView.findViewById(R.id.tv_project_author);
             mPicIv = itemView.findViewById(R.id.iv_project_pic);
         }
+    }
+
+    /**
+     * 点击事件的回调接口
+     */
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position, List<ProjectListBean.DataBean.DatasBean> datas);
     }
 }

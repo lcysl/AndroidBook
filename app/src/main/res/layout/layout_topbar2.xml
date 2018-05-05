@@ -3,7 +3,7 @@
     android:orientation="horizontal"
     android:layout_width="match_parent"
     android:layout_height="60dp"
-    android:background="@color/colorPrimaryDark">
+    android:background="@color/top_bar_background">
 
     <Button
         android:id="@+id/btn_top_bar2_return"
