@@ -16,6 +16,7 @@ import com.uestc.lcy.androidbook.modules.mine.MineFragment;
 import com.uestc.lcy.androidbook.modules.navigate.NavigateActivity;
 import com.uestc.lcy.androidbook.modules.knowledge_system.KnowledgeSystemFragment;
 import com.uestc.lcy.androidbook.modules.project.ProjectFragment;
+import com.uestc.lcy.androidbook.modules.search.SearchActivity;
 
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
     private Fragment mContent;
     private int currentFragmentIndex = 0;
     private Button mNavigateBtn;
+    private Button mSearchBtn;
 
     /**
      * 获取子类的布局
@@ -101,6 +103,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbMy = findViewById(R.id.rb_main_mine);
         rbProject = findViewById(R.id.rb_main_project);
         mNavigateBtn = findViewById(R.id.btn_navigate);
+        mSearchBtn = findViewById(R.id.btn_search);
     }
 
     /**
@@ -132,6 +135,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
         rbMy.setOnClickListener(this);
         rbProject.setOnClickListener(this);
         mNavigateBtn.setOnClickListener(this);
+        mSearchBtn.setOnClickListener(this);
     }
 
     @Override
@@ -161,6 +165,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener{
             case R.id.btn_navigate:
                 Intent intent = new Intent(this, NavigateActivity.class);
                 startActivity(intent);
+                break;
+            case R.id.btn_search:
+                Intent intent1 = new Intent(this, SearchActivity.class);
+                startActivity(intent1);
                 break;
             default:
                 break;

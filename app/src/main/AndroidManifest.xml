@@ -31,6 +31,8 @@
         <activity android:name=".modules.knowledge_system.activity.ChildArticleListActivity"/>
         <activity android:name=".modules.navigate.NavigateActivity"/>
         <activity android:name=".modules.project.activity.ProjectListActivity"/>
+        <activity android:name=".modules.search.SearchActivity"/>
+        <activity android:name=".modules.search.activity.SearchListActivity"/>
     </application>
 
 </manifest>
