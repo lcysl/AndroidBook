@@ -9,4 +9,5 @@ import com.uestc.lcy.androidbook.model.SearchBean;
 public interface SearchListCallback {
     void onLoadSearchListSuccess(SearchBean bean);
     void onLoadSearchListError();
+    void onLoadMoreSearchListSuccess(SearchBean bean);
 }

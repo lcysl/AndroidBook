@@ -10,4 +10,5 @@ import com.uestc.lcy.androidbook.model.SearchBean;
 public interface SearchListView extends BaseView{
     void onLoadSearchListSuccess(SearchBean bean);
     void onLoadSearchListError();
+    void onLoadMoreSearchListSuccess(SearchBean bean);
 }

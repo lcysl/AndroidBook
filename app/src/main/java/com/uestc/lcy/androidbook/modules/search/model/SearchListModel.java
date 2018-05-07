@@ -14,14 +14,18 @@ import retrofit2.Response;
  */
 
 public class SearchListModel {
-    public void loadSearchList(int page, String k, final SearchListCallback callback) {
+    public void loadSearchList(final int page, String k, final SearchListCallback callback) {
         SearchService searchService = HttpUtils.getInstance().create(SearchService.class);
         searchService.loadSearchList(page, k)
                 .enqueue(new Callback<SearchBean>() {
                     @Override
                     public void onResponse(Call<SearchBean> call, Response<SearchBean> response) {
                         SearchBean bean = response.body();
-                        callback.onLoadSearchListSuccess(bean);
+                        if (page == 0) {
+                            callback.onLoadSearchListSuccess(bean);
+                        } else {
+                            callback.onLoadMoreSearchListSuccess(bean);
+                        }
                     }
 
                     @Override

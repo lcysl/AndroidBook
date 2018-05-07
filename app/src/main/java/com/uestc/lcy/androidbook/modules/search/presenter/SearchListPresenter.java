@@ -38,4 +38,12 @@ public class SearchListPresenter extends BasePresenter<SearchListView> implement
             mView.onLoadSearchListError();
         }
     }
+
+    @Override
+    public void onLoadMoreSearchListSuccess(SearchBean bean) {
+        if (mView != null) {
+            mView.hideLoading();
+            mView.onLoadMoreSearchListSuccess(bean);
+        }
+    }
 }

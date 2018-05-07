@@ -9,7 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.model.NavigateBean;
@@ -56,7 +55,7 @@ public class NavigateAdapter extends RecyclerView.Adapter<NavigateAdapter.ViewHo
             holder.mFlowLayout.setAdapter(new TagAdapter<String>(title) {
                 @Override
                 public View getView(FlowLayout parent, int position, String s) {
-                    TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item_navigate_tag, holder.mFlowLayout, false);
+                    TextView tv = (TextView) LayoutInflater.from(mContext).inflate(R.layout.item_tag, holder.mFlowLayout, false);
                     tv.setText(s);
                     return tv;
                 }
