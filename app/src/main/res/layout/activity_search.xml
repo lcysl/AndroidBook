@@ -52,6 +52,8 @@
                 android:textColor="#317F6D"
                 android:textColorHint="#317F6D"
                 android:textSize="15sp"
+                android:imeOptions="actionSearch"
+                android:singleLine="true"
                 />
 
 

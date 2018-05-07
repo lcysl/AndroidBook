@@ -2,9 +2,11 @@ package com.uestc.lcy.androidbook.modules.search;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
@@ -20,6 +22,8 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private EditText mSearchEt;
     private ImageView mEmptyIv;
     private ImageView mSearchIv;
+    private Intent mIntent;
+    private Bundle mBundle;
 
     @Override
     protected int getSubLayout() {
@@ -47,6 +51,17 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
     private void setListener() {
         mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
+        mSearchEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                mIntent = new Intent(textView.getContext(), SearchListActivity.class);
+                mBundle = new Bundle();
+                mBundle.putString("key", mSearchEt.getText().toString());
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -60,11 +75,11 @@ public class SearchActivity extends BaseActivity implements View.OnClickListener
                 break;
             case R.id.iv_search:
                 //将输入框的值传给SearchListActivity进行网络请求
-                Intent intent = new Intent(this, SearchListActivity.class);
-                Bundle bundle = new Bundle();
-                bundle.putString("key", mSearchEt.getText().toString());
-                intent.putExtras(bundle);
-                startActivity(intent);
+                mIntent = new Intent(this, SearchListActivity.class);
+                mBundle = new Bundle();
+                mBundle.putString("key", mSearchEt.getText().toString());
+                mIntent.putExtras(mBundle);
+                startActivity(mIntent);
                 break;
         }
     }
