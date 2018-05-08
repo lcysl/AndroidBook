@@ -48,6 +48,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
     /*历史搜索相关*/
     private LinearLayout mSearchHistoryLl;
     private TagFlowLayout mSearchHistoryTfl;
+    private TextView mClearSearchHistoryTv;
     /*页码*/
     private int mPage = 0;
     /*RecyclerView相关*/
@@ -89,6 +90,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         mSearchHistoryLl = findViewById(R.id.ll_search_history);
         mSearchHistoryLl.bringToFront();
         mSearchHistoryTfl = findViewById(R.id.tfl_search_history);
+        mClearSearchHistoryTv = findViewById(R.id.tv_clear_search_history);
 
         mRecyclerView = findViewById(R.id.rv_search_list);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -140,6 +142,13 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 String key = keyList.get(position);
                 mPresenter.loadSearchList(mPage, key);
                 return true;
+            }
+        });
+        //清空搜索历史的事件监听
+        mClearSearchHistoryTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                ////????
             }
         });
     }

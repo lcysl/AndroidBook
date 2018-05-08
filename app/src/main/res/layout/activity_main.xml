@@ -24,6 +24,11 @@
 
         <!--展示底部标签-->
         <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#CDC9C9"/>
+
+        <LinearLayout
             android:id="@+id/ll_main_bottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -72,7 +77,5 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
 
 </RelativeLayout>
