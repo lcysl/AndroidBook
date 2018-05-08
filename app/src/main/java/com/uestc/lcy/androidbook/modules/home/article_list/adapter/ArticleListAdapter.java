@@ -98,7 +98,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 holder.mTitleTv.setText(data.getTitle());
                 holder.mChapterNameTv.setText(data.getChapterName());
 
-                ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+                ((ViewHolder) holder).mTitleTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (mOnItemClickListener != null) {

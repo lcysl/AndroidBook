@@ -53,7 +53,7 @@ public class ProjectListAdapter extends RecyclerView.Adapter<ProjectListAdapter.
 
             Glide.with(mContext).load(data.getEnvelopePic()).into(holder.mPicIv);
 
-            ((ViewHolder) holder).itemView.setOnClickListener(new View.OnClickListener() {
+            ((ViewHolder) holder).mTitleTv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
                     if (mOnItemClickListener != null) {

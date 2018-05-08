@@ -1,8 +1,11 @@
 package com.uestc.lcy.androidbook.modules.search;
 
+import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -17,6 +20,8 @@ import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.config.AppConfig;
 import com.uestc.lcy.androidbook.model.SearchBean;
+import com.uestc.lcy.androidbook.modules.home.article_content.ArticleContentActivity;
+import com.uestc.lcy.androidbook.modules.project.adapter.ProjectListAdapter;
 import com.uestc.lcy.androidbook.modules.search.adapter.SearchListAdapter;
 import com.uestc.lcy.androidbook.modules.search.presenter.SearchListPresenter;
 import com.uestc.lcy.androidbook.modules.search.view.SearchListView;
@@ -32,7 +37,7 @@ import java.util.List;
  */
 
 public class SearchActivity extends BaseActivity<SearchListPresenter> implements
-        View.OnClickListener, SearchListView, ArticleListRecyclerView.OnLoadMoreListener{
+        View.OnClickListener, SearchListView, ArticleListRecyclerView.OnLoadMoreListener,SearchListAdapter.OnItemClickListener{
 
 
     private ImageView mBackIv;
@@ -110,6 +115,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
         mEmptyIv.setOnClickListener(this);
+        //软键盘右下角按键的事件监听
         mSearchEt.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
             public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
@@ -126,6 +132,16 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
             }
         });
         mRecyclerView.setOnLoadMoreListener(this);
+        //FlowLayout标签的事件监听
+        mSearchHistoryTfl.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
+            @Override
+            public boolean onTagClick(View view, int position, FlowLayout parent) {
+                List<String> keyList = AppConfig.getInstance().getList("keyList");
+                String key = keyList.get(position);
+                mPresenter.loadSearchList(mPage, key);
+                return true;
+            }
+        });
     }
 
     @Override
@@ -161,6 +177,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 mDatas = bean.getData().getDatas();
                 if (mDatas != null) {
                     mAdapter = new SearchListAdapter(mDatas, this);
+                    mAdapter.setOnItemClickListener(this);
                     mRecyclerView.setAdapter(mAdapter);
                     mRecyclerView.bringToFront();
                 }
@@ -201,4 +218,20 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         super.hideLoadingDialog();
     }
 
+    @Override
+    public void onItemClick(View view, int position, List<SearchBean.DataBean.DatasBean> datas) {
+        SearchBean.DataBean.DatasBean bean = datas.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", bean.getLink());
+        String title;
+        if (Build.VERSION.SDK_INT >= 24) {
+            title = String.valueOf(Html.fromHtml(bean.getTitle(), Html.FROM_HTML_MODE_COMPACT));
+        } else {
+            title = String.valueOf(Html.fromHtml(bean.getTitle()));
+        }
+        bundle.putString("title", title);
+        Intent intent = new Intent(this, ArticleContentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

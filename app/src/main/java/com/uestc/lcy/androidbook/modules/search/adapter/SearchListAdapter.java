@@ -3,13 +3,11 @@ package com.uestc.lcy.androidbook.modules.search.adapter;
 import android.content.Context;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.WebView;
 import android.widget.TextView;
 
 import com.uestc.lcy.androidbook.R;
@@ -17,7 +15,6 @@ import com.uestc.lcy.androidbook.model.SearchBean;
 
 import java.util.List;
 
-import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 /**
  * Created by Administrator on 2018\5\6 0006.
@@ -33,6 +30,12 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
         this.mContext = context;
     }
 
+    private OnItemClickListener mOnItemClickListener;
+
+    public void setOnItemClickListener(OnItemClickListener onItemClickListener) {
+        this.mOnItemClickListener = onItemClickListener;
+    }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -41,17 +44,34 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         if (holder instanceof ViewHolder) {
             SearchBean.DataBean.DatasBean data = mDatas.get(position);
             holder.mAuthorTv.setText(data.getAuthor());
             holder.mNiceDateTv.setText(data.getNiceDate());
             holder.mChapterNameTv.setText(data.getChapterName());
+
+            String title;
             if (Build.VERSION.SDK_INT >= 24) {
-                holder.mTitleTv.setText(Html.fromHtml(data.getTitle(), Html.FROM_HTML_MODE_COMPACT));
+                title = String.valueOf(Html.fromHtml(data.getTitle(), Html.FROM_HTML_MODE_COMPACT));
             } else {
-                holder.mTitleTv.setText(Html.fromHtml(data.getTitle()));
+                title = String.valueOf(Html.fromHtml(data.getTitle()));
             }
+            if (Build.VERSION.SDK_INT >= 24) {
+                holder.mTitleTv.setText(title);
+            } else {
+                holder.mTitleTv.setText(title);
+            }
+
+            ((ViewHolder) holder).mTitleTv.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    if (mOnItemClickListener != null) {
+                        mOnItemClickListener.onItemClick(((ViewHolder) holder).itemView, position, mDatas);
+                    }
+                }
+            });
+            return;
         }
     }
 
@@ -76,4 +96,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             mChapterNameTv = itemView.findViewById(R.id.tv_chapterName);
         }
     }
+    /**
+     * 点击事件的回调接口
+     */
+    public interface OnItemClickListener {
+        void onItemClick(View view, int position, List<SearchBean.DataBean.DatasBean> datas);
+    }
+
 }
