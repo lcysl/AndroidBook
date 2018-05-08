@@ -3,6 +3,7 @@ package com.uestc.lcy.androidbook.modules.search;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -124,6 +125,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 return true;
             }
         });
+        mRecyclerView.setOnLoadMoreListener(this);
     }
 
     @Override
@@ -173,6 +175,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
 
     @Override
     public void onLoadMoreSearchListSuccess(SearchBean bean) {
+//        Log.d("--lcy--", "onLoadMoreSearchList");
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){

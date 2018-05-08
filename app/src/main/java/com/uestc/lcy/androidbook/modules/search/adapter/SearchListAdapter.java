@@ -1,8 +1,11 @@
 package com.uestc.lcy.androidbook.modules.search.adapter;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +16,8 @@ import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.model.SearchBean;
 
 import java.util.List;
+
+import static android.text.Html.FROM_HTML_MODE_LEGACY;
 
 /**
  * Created by Administrator on 2018\5\6 0006.
@@ -31,7 +36,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.item_search_list, parent, false);
+        View view = LayoutInflater.from(mContext).inflate(R.layout.item_article_list, parent, false);
         return new ViewHolder(view);
     }
 
@@ -42,8 +47,11 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
             holder.mAuthorTv.setText(data.getAuthor());
             holder.mNiceDateTv.setText(data.getNiceDate());
             holder.mChapterNameTv.setText(data.getChapterName());
-
-            holder.mTitleWv.loadDataWithBaseURL(null, data.getTitle(), "text/html", "utf-8", null);
+            if (Build.VERSION.SDK_INT >= 24) {
+                holder.mTitleTv.setText(Html.fromHtml(data.getTitle(), Html.FROM_HTML_MODE_COMPACT));
+            } else {
+                holder.mTitleTv.setText(Html.fromHtml(data.getTitle()));
+            }
         }
     }
 
@@ -56,7 +64,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
 
         TextView mAuthorTv;
         TextView mNiceDateTv;
-        WebView mTitleWv;
+        TextView mTitleTv;
         TextView mChapterNameTv;
 
         public ViewHolder(View itemView) {
@@ -64,7 +72,7 @@ public class SearchListAdapter extends RecyclerView.Adapter<SearchListAdapter.Vi
 
             mAuthorTv = itemView.findViewById(R.id.tv_author);
             mNiceDateTv = itemView.findViewById(R.id.tv_niceDate);
-            mTitleWv = itemView.findViewById(R.id.wv_title);
+            mTitleTv = itemView.findViewById(R.id.tv_title);
             mChapterNameTv = itemView.findViewById(R.id.tv_chapterName);
         }
     }

@@ -118,7 +118,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private int getRealPosition(ViewHolder holder) {
         int position = holder.getLayoutPosition();
-        Log.d("--position--", position +"");
+//        Log.d("--position--", position +"");
         return mHeaderView == null ? position : position - 1;
     }
 

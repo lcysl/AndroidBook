@@ -45,7 +45,7 @@ public class ActivityConfig {
      * @return
      */
     public String getLastActivity() {
-        Log.d("getLastActivity()", "当前集合的元素" + list.toString());
+//        Log.d("getLastActivity()", "当前集合的元素" + list.toString());
         return list.get(list.size() - 2);
     }
 
