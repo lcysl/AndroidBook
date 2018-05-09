@@ -24,6 +24,7 @@ import com.uestc.lcy.androidbook.modules.home.article_list.presenter.ArticleList
 import com.uestc.lcy.androidbook.modules.home.article_list.view.ArticleListView;
 import com.uestc.lcy.androidbook.views.ArticleListRecyclerView;
 import com.youth.banner.Banner;
+import com.youth.banner.listener.OnBannerListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<ArticleListPresenter> implements ArticleListView,
         ArticleListRecyclerView.OnLoadMoreListener, ArticleListAdapter.OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener{
+        SwipeRefreshLayout.OnRefreshListener, OnBannerListener{
 
     /*context*/
     private MainActivity mActivity;
@@ -49,6 +50,7 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     private RecyclerView.LayoutManager mLayoutManager;
     /*首页banner*/
     private Banner mBanner;
+    private List<BannerBean.DataBean> mBannerData;
     /*列表项的内容*/
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
 
@@ -102,6 +104,7 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     private void setListener() {
         mSwipeRefreshLayout.setOnRefreshListener(this);
         mRecyclerView.setOnLoadMoreListener(this);
+
     }
 
     @Override
@@ -152,23 +155,26 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
      */
     @Override
     public void onLoadBannerSuccess(BannerBean bean) {
+        mBannerData = bean.getData();
         //渲染header的布局
         View header = LayoutInflater.from(mActivity).inflate(R.layout.item_banner, mRecyclerView, false);
         mBanner = header.findViewById(R.id.banner);
         //配置banner
         mBanner.setImageLoader(new GlideImageLoader());
-        mBanner.setImages(getImages(bean));
+        mBanner.setImages(getImages());
         mBanner.start();
         //把hearView设置给adapter
         mAdapter.setHeaderView(header);
         //刷新adapter
         mAdapter.notifyDataSetChanged();
+
+        mBanner.setOnBannerListener(this);
     }
 
-    private List<String> getImages(BannerBean bean) {
-        List<BannerBean.DataBean> list = bean.getData();
+    private List<String> getImages() {
+//        List<BannerBean.DataBean> list = bean.getData();
         List<String> images = new ArrayList<>();
-        for (BannerBean.DataBean data : list) {
+        for (BannerBean.DataBean data : mBannerData) {
             images.add(data.getImagePath());
         }
         return images;
@@ -199,6 +205,16 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         startActivity(intent);
     }
 
+    @Override
+    public void OnBannerClick(int position) {
+        BannerBean.DataBean data = mBannerData.get(position);
+        Bundle bundle = new Bundle();
+        bundle.putString("url", data.getUrl());
+        bundle.putString("title", data.getTitle());
+        Intent intent = new Intent(mActivity, ArticleContentActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 
     @Override
     public void showLoading() {
@@ -220,4 +236,5 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
             }
         }, 2000);
     }
+
 }
