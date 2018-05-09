@@ -1,5 +1,6 @@
 package com.uestc.lcy.androidbook.modules.search.callback;
 
+import com.uestc.lcy.androidbook.model.HotKeyBean;
 import com.uestc.lcy.androidbook.model.SearchBean;
 
 /**
@@ -10,4 +11,6 @@ public interface SearchListCallback {
     void onLoadSearchListSuccess(SearchBean bean);
     void onLoadSearchListError();
     void onLoadMoreSearchListSuccess(SearchBean bean);
+    void onLoadHotKeySuccess(HotKeyBean bean);
+    void onLoadHotKeyError();
 }

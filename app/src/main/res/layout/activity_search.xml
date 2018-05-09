@@ -124,8 +124,23 @@
                 android:text="清空搜索历史"
                 android:layout_gravity="center_horizontal"/>
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/tv_hot_key"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="大家都在搜"
+                android:paddingTop="10dp"/>
 
+            <com.zhy.view.flowlayout.TagFlowLayout
+                android:id="@+id/tfl_hot_key"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:max_select="1"
+                >
+
+            </com.zhy.view.flowlayout.TagFlowLayout>
+
+        </LinearLayout>
 
         <com.uestc.lcy.androidbook.views.ArticleListRecyclerView
             android:id="@+id/rv_search_list"

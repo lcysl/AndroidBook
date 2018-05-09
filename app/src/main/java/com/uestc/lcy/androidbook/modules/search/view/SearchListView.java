@@ -1,6 +1,7 @@
 package com.uestc.lcy.androidbook.modules.search.view;
 
 import com.uestc.lcy.androidbook.base.BaseView;
+import com.uestc.lcy.androidbook.model.HotKeyBean;
 import com.uestc.lcy.androidbook.model.SearchBean;
 
 /**
@@ -11,4 +12,6 @@ public interface SearchListView extends BaseView{
     void onLoadSearchListSuccess(SearchBean bean);
     void onLoadSearchListError();
     void onLoadMoreSearchListSuccess(SearchBean bean);
+    void onLoadHotKeySuccess(HotKeyBean bean);
+    void onLoadHotKeyError();
 }

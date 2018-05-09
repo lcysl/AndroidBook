@@ -1,6 +1,7 @@
 package com.uestc.lcy.androidbook.modules.search.presenter;
 
 import com.uestc.lcy.androidbook.base.BasePresenter;
+import com.uestc.lcy.androidbook.model.HotKeyBean;
 import com.uestc.lcy.androidbook.model.SearchBean;
 import com.uestc.lcy.androidbook.modules.search.callback.SearchListCallback;
 import com.uestc.lcy.androidbook.modules.search.model.SearchListModel;
@@ -21,6 +22,11 @@ public class SearchListPresenter extends BasePresenter<SearchListView> implement
     public void loadSearchList(int page, String key) {
         mView.showLoading();
         mModel.loadSearchList(page, key, this);
+    }
+
+    public void loadHotKey() {
+        mView.showLoading();
+        mModel.loadHotKey(this);
     }
 
     @Override
@@ -44,6 +50,22 @@ public class SearchListPresenter extends BasePresenter<SearchListView> implement
         if (mView != null) {
             mView.hideLoading();
             mView.onLoadMoreSearchListSuccess(bean);
+        }
+    }
+
+    @Override
+    public void onLoadHotKeySuccess(HotKeyBean bean) {
+        if (mView != null) {
+            mView.hideLoading();
+            mView.onLoadHotKeySuccess(bean);
+        }
+    }
+
+    @Override
+    public void onLoadHotKeyError() {
+        if (mView != null) {
+            mView.hideLoading();
+            mView.onLoadHotKeyError();
         }
     }
 }

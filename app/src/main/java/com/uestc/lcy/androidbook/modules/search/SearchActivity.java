@@ -19,6 +19,7 @@ import android.widget.Toast;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.config.AppConfig;
+import com.uestc.lcy.androidbook.model.HotKeyBean;
 import com.uestc.lcy.androidbook.model.SearchBean;
 import com.uestc.lcy.androidbook.modules.home.article_content.ArticleContentActivity;
 import com.uestc.lcy.androidbook.modules.project.adapter.ProjectListAdapter;
@@ -30,6 +31,7 @@ import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -37,18 +39,20 @@ import java.util.List;
  */
 
 public class SearchActivity extends BaseActivity<SearchListPresenter> implements
-        View.OnClickListener, SearchListView, ArticleListRecyclerView.OnLoadMoreListener,SearchListAdapter.OnItemClickListener{
+        View.OnClickListener, SearchListView, ArticleListRecyclerView.OnLoadMoreListener,
+        SearchListAdapter.OnItemClickListener{
 
-
+    /*标题栏相关*/
     private ImageView mBackIv;
     private EditText mSearchEt;
     private ImageView mEmptyIv;
     private ImageView mSearchIv;
-
     /*历史搜索相关*/
     private LinearLayout mSearchHistoryLl;
     private TagFlowLayout mSearchHistoryTfl;
     private TextView mClearSearchHistoryTv;
+    /*搜索热词相关*/
+    private TagFlowLayout mHotKeyTfl;
     /*页码*/
     private int mPage = 0;
     /*RecyclerView相关*/
@@ -91,6 +95,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         mSearchHistoryLl.bringToFront();
         mSearchHistoryTfl = findViewById(R.id.tfl_search_history);
         mClearSearchHistoryTv = findViewById(R.id.tv_clear_search_history);
+        mHotKeyTfl = findViewById(R.id.tfl_hot_key);
 
         mRecyclerView = findViewById(R.id.rv_search_list);
         mLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
@@ -99,9 +104,8 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
 
 
     private void initData() {
-        //从sp中取出集合数据，更新到flowlayout
+        //从sp中取出集合数据，更新到TagFlowLayout
         List<String> keyList = AppConfig.getInstance().getList("keyList");
-
         mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
             @Override
             public View getView(FlowLayout parent, int position, String s) {
@@ -110,10 +114,12 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 return tv;
             }
         });
-
+        //调用P层的网络请求加载搜索热词
+        mPresenter.loadHotKey();
     }
 
     private void setListener() {
+        //返回键、清空搜索框按钮、搜索按钮的点击事件
         mBackIv.setOnClickListener(this);
         mSearchIv.setOnClickListener(this);
         mEmptyIv.setOnClickListener(this);
@@ -133,6 +139,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 return true;
             }
         });
+        //列表加载更多的事件监听
         mRecyclerView.setOnLoadMoreListener(this);
         //FlowLayout标签的事件监听
         mSearchHistoryTfl.setOnTagClickListener(new TagFlowLayout.OnTagClickListener() {
@@ -145,28 +152,12 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
             }
         });
         //清空搜索历史的事件监听
-        mClearSearchHistoryTv.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                List<String> keyList = AppConfig.getInstance().getList("keyList");
-                keyList.clear();
-                Log.d("---keyList---", keyList.toString());
-                AppConfig.getInstance().setList("keyList", keyList);
-
-                mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
-                    @Override
-                    public View getView(FlowLayout parent, int position, String s) {
-                        TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
-                        tv.setText(s);
-                        return tv;
-                    }
-                });
-            }
-        });
+        mClearSearchHistoryTv.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
+        List<String> keyList;
         switch (view.getId()) {
             case R.id.iv_back:
                 onBackPressed();
@@ -178,13 +169,27 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 //将输入框的值传给P层进行网络请求
                 String key = mSearchEt.getText().toString();
                 //将关键字存入sp,用于更新历史搜索
-                List<String> keyList = AppConfig.getInstance().getList("keyList");
+                keyList = AppConfig.getInstance().getList("keyList");
                 if (!keyList.contains(key)) {
                     keyList.add(key);
                     AppConfig.getInstance().setList("keyList", keyList);
                 }
                 //调用P层的网络请求
                 mPresenter.loadSearchList(mPage, key);
+                break;
+            case R.id.tv_clear_search_history:
+                keyList = AppConfig.getInstance().getList("keyList");
+                keyList.clear();
+                Log.d("---keyList---", keyList.toString());
+                AppConfig.getInstance().setList("keyList", keyList);
+                mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
+                    @Override
+                    public View getView(FlowLayout parent, int position, String s) {
+                        TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
+                        tv.setText(s);
+                        return tv;
+                    }
+                });
                 break;
         }
     }
@@ -194,7 +199,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
-            if (bean.getData() != null) {
+            if (bean.getData().getDatas() != null) {
                 mDatas = bean.getData().getDatas();
                 if (mDatas != null) {
                     mAdapter = new SearchListAdapter(mDatas, this);
@@ -213,7 +218,6 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
 
     @Override
     public void onLoadMoreSearchListSuccess(SearchBean bean) {
-//        Log.d("--lcy--", "onLoadMoreSearchList");
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
@@ -223,20 +227,36 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
     }
 
     @Override
+    public void onLoadHotKeySuccess(HotKeyBean bean) {
+        if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
+            Toast.makeText(this, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
+        } else if (bean.getErrorCode() == 0 && bean.getData() != null){
+            //将结果显示到搜索热词的FlowLayout上
+            List<String> hotKeyList = new ArrayList<>();
+            for (HotKeyBean.DataBean data : bean.getData()) {
+                hotKeyList.add(data.getName());
+            }
+            mHotKeyTfl.setAdapter(new TagAdapter<String>(hotKeyList) {
+                @Override
+                public View getView(FlowLayout parent, int position, String s) {
+                    TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
+                    tv.setText(s);
+                    return tv;
+                }
+            });
+        }
+    }
+
+    @Override
+    public void onLoadHotKeyError() {
+        Toast.makeText(this, "网络请求失败", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
     public void onLoadMore() {
         mPage++;
         String key = mSearchEt.getText().toString();
         mPresenter.loadSearchList(mPage, key);
-    }
-
-    @Override
-    public void showLoading() {
-        super.showLoadingDialog();
-    }
-
-    @Override
-    public void hideLoading() {
-        super.hideLoadingDialog();
     }
 
     @Override
@@ -255,4 +275,16 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    @Override
+    public void showLoading() {
+        super.showLoadingDialog();
+    }
+
+    @Override
+    public void hideLoading() {
+        super.hideLoadingDialog();
+    }
+
+
 }
