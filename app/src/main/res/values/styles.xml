@@ -25,8 +25,9 @@
         <item name="android:gravity">center</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:textColor">@color/main_tab_text</item>
-        <item name="android:textSize">18sp</item>
-        <item name="android:paddingTop">10dp</item>
+        <item name="android:textSize">15sp</item>
+        <item name="android:paddingTop">5dp</item>
+        <item name="android:paddingBottom">5dp</item>
     </style>
 
     <!--CardView的主题-->

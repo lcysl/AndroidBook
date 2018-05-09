@@ -152,6 +152,7 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                 keyList.clear();
                 Log.d("---keyList---", keyList.toString());
                 AppConfig.getInstance().setList("keyList", keyList);
+
                 mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
                     @Override
                     public View getView(FlowLayout parent, int position, String s) {

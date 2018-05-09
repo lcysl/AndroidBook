@@ -50,7 +50,7 @@
                 android:layout_weight="17"
                 android:layout_marginLeft="15dp"
                 android:background="@null"
-                android:hint="Search..."
+                android:hint="搜索热门文章"
                 android:textColor="#317F6D"
                 android:textColorHint="#317F6D"
                 android:textSize="15sp"
@@ -103,6 +103,7 @@
             >
 
             <TextView
+                android:id="@+id/tv_search_history"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="历史搜索"/>

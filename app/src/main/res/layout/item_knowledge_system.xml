@@ -27,7 +27,7 @@
                 android:padding="8dp"
                 android:text="一级目录"
                 android:textColor="@color/colorPrimary"
-                android:textSize="25sp"/>
+                android:textSize="20sp"/>
 
             <TextView
                 android:id="@+id/tv_type_children"
