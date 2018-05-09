@@ -59,9 +59,6 @@ public class AppConfig {
      */
     public <T> void setList(String key, List<T> value) {
         editor = sharedPreferences.edit();
-        if (value == null || value.size() <= 0) {
-            return;
-        }
         Gson gson = new Gson();
         String strJson = gson.toJson(value);
         editor.putString(key, strJson);

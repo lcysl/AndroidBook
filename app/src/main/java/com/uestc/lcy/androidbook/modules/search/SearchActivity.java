@@ -101,16 +101,16 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
     private void initData() {
         //从sp中取出集合数据，更新到flowlayout
         List<String> keyList = AppConfig.getInstance().getList("keyList");
-        if (keyList != null) {
-            mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
-                @Override
-                public View getView(FlowLayout parent, int position, String s) {
-                    TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
-                    tv.setText(s);
-                    return tv;
-                }
-            });
-        }
+
+        mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
+            @Override
+            public View getView(FlowLayout parent, int position, String s) {
+                TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
+                tv.setText(s);
+                return tv;
+            }
+        });
+
     }
 
     private void setListener() {
@@ -148,7 +148,18 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
         mClearSearchHistoryTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ////????
+                List<String> keyList = AppConfig.getInstance().getList("keyList");
+                keyList.clear();
+                Log.d("---keyList---", keyList.toString());
+                AppConfig.getInstance().setList("keyList", keyList);
+                mSearchHistoryTfl.setAdapter(new TagAdapter<String>(keyList) {
+                    @Override
+                    public View getView(FlowLayout parent, int position, String s) {
+                        TextView tv = (TextView) LayoutInflater.from(parent.getContext()).inflate(R.layout.item_tag, mSearchHistoryTfl, false);
+                        tv.setText(s);
+                        return tv;
+                    }
+                });
             }
         });
     }
