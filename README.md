@@ -47,10 +47,36 @@ AndroidBook
   2.列表为系统提供的一些热门文章，点击标题可以查看具体内容。<br/>
 #### 关键技术
   MVP+Retrofit2+Banner+RecyclerView+MD(SwipeRefreshLayout、CardView)<br/>
-  自定义View,实现上拉加载更多<br/>
+  自定义View,实现上拉加载更多<br/>
   自定义View，实现圆形的图标<br/>
   WebView加载网页<br/>
 ## 知识体系
 #### 用户界面
 #### 用户场景
+  点击底部标签栏“知识体系”进入知识体系界面，显示一级标题的列表，点击一级标题，进入该一级标题下的二级标题列表，点击二级标题，
+  进入该二级标题下的文章列表，点击可以查看文章内容。登录用户和非登录用户都可以查看。
 #### 关键技术
+  MVP+Retrofit2+RecyclerView+MD(SwipeRefreshLayout、CardView)
+## 项目
+#### 用户界面
+#### 用户场景
+  点击底部标签栏“项目”进入项目界面，显示项目的分类，点击分类可以查看当前类别里面的项目列表。登录用户和非登陆用户都可以查看。
+#### 关键技术
+  MVP+Retrofit2+RecyclerView+Glide+MD(SwipeRefreshLayout、CardView)
+## 导航
+#### 用户界面
+#### 用户场景
+  点击顶部标题栏的导航按钮进入导航界面，可以看到一些常用分类，并且以标签的形式列出了分类下的内容，点击小标签可以查看具体内容。
+#### 关键技术
+  MVP+Retrofit2+RecyclerView+TagFlowLayout+MD(SwipeRefreshLayout、CardView)
+## 搜索
+#### 用户界面
+#### 用户场景
+  点击顶部标题栏的搜索按钮进入搜索界面，可以输入关键词进行搜索。<br/>
+  1.搜索后再次进入搜索界面时会显示历史搜索信息，历史搜索的标签可以点击，点击清空历史搜索可以清空；<br/>
+  2.搜索界面会显示搜索热词，但是搜索热词的标签没有点击事件；<br/>
+  3.输入关键词后可以点击软键盘的右下键按键，也可以点击搜索按钮进行搜索；<br/>
+  4.搜索成功后会显示返回的文章列表。<br/>
+#### 关键技术
+  MVP+Retrofit2+RecyclerView+TagFlowLayout+MD(SwipeRefreshLayout、CardView)<br/>
+  SharedPreference存储历史搜索的信息<br/>
