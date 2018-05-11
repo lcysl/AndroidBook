@@ -29,12 +29,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="头像"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/gray"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
 
-            <ImageView
+            <com.uestc.lcy.androidbook.views.CircleImageView
                 android:id="@+id/iv_user_icon"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
@@ -54,55 +54,26 @@
             >
 
             <TextView
-                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="用户名"
-                android:textSize="30sp"
+                android:textSize="20sp"
                 android:textColor="@color/gray"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"/>
-
-            <EditText
-                android:id="@+id/et_username"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/icon_avatar"
-                android:textSize="25sp"
-                />
-
-        </RelativeLayout>
-
-        <!--邮箱信息-->
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:orientation="horizontal"
-            >
 
             <TextView
-                android:id="@+id/tv_user_email"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="邮箱"
-                android:textSize="30sp"
-                android:textColor="@color/gray"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"/>
-
-            <EditText
-                android:id="@+id/et_user_email"
+                android:id="@+id/tv_username"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:src="@drawable/icon_avatar"
-                android:textSize="25sp"
+                android:textSize="20sp"
                 />
 
         </RelativeLayout>
+
 
     </LinearLayout>
 
