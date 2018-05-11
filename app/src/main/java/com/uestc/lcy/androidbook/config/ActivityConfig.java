@@ -1,7 +1,5 @@
 package com.uestc.lcy.androidbook.config;
 
-import android.app.Activity;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +27,6 @@ public class ActivityConfig {
      */
     public void pushCurrentActivity(Class activity) {
         list.add(activity.getName());
-        //Log.d("pushCurrentActivity()", activityClass.toString());
     }
 
     /**
@@ -45,7 +42,6 @@ public class ActivityConfig {
      * @return
      */
     public String getLastActivity() {
-//        Log.d("getLastActivity()", "当前集合的元素" + list.toString());
         return list.get(list.size() - 2);
     }
 
@@ -53,7 +49,6 @@ public class ActivityConfig {
      * 删除当前Activity
      */
     public void delete() {
-        //Log.d("delete", "delete掉的activity" + list.get(list.size() - 1).toString());
         list.remove(list.size() - 1);
     }
 }

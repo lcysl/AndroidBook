@@ -32,23 +32,20 @@ import org.greenrobot.eventbus.ThreadMode;
 public class MineFragment extends BaseFragment {
 
     private MainActivity mActivity;
-
+    /*收藏、书签和设置*/
     private LinearLayout mLlCollect;
     private LinearLayout mLlBookMark;
     private LinearLayout mLlSetting;
-
-    private ImageView ivCollectIcon;
-    private TextView tvCollectTitle;
-
-    private ImageView ivBookMarkIcon;
-    private TextView tvBookMarkTitle;
-
-    private ImageView ivSettingIcon;
-    private TextView tvSettingTitle;
-
+    private ImageView mCollectIconIv;
+    private TextView mCollectTitleTv;
+    private ImageView mBookMarkIconIv;
+    private TextView mBookMarkTitleTv;
+    private ImageView mSettingIconIv;
+    private TextView mSettingTitleTv;
+    /*头像和用户名*/
     private ImageView mAvatar;
     private TextView mUsernameTv;
-
+    /*取消登录*/
     private Button mUnLoginBtn;
 
     @Override
@@ -75,9 +72,9 @@ public class MineFragment extends BaseFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        //注册事件，用于接收从登录界面传过来的信息
         EventBus.getDefault().register(this);
     }
-
 
     /**
      * 初始化每一项（3项）的布局
@@ -96,29 +93,30 @@ public class MineFragment extends BaseFragment {
         mAvatar = view.findViewById(R.id.iv_avatar);
         mUsernameTv = view.findViewById(R.id.tv_username);
 
-        ivCollectIcon = mLlCollect.findViewById(R.id.iv_mine_list_icon);
-        tvCollectTitle = mLlCollect.findViewById(R.id.tv_mine_list_title);
+        mCollectIconIv = mLlCollect.findViewById(R.id.iv_mine_list_icon);
+        mCollectTitleTv = mLlCollect.findViewById(R.id.tv_mine_list_title);
 
-        ivBookMarkIcon = mLlBookMark.findViewById(R.id.iv_mine_list_icon);
-        tvBookMarkTitle = mLlBookMark.findViewById(R.id.tv_mine_list_title);
+        mBookMarkIconIv = mLlBookMark.findViewById(R.id.iv_mine_list_icon);
+        mBookMarkTitleTv = mLlBookMark.findViewById(R.id.tv_mine_list_title);
 
-        ivSettingIcon = mLlSetting.findViewById(R.id.iv_mine_list_icon);
-        tvSettingTitle = mLlSetting.findViewById(R.id.tv_mine_list_title);
+        mSettingIconIv = mLlSetting.findViewById(R.id.iv_mine_list_icon);
+        mSettingTitleTv = mLlSetting.findViewById(R.id.tv_mine_list_title);
 
-        ivCollectIcon.setImageResource(R.drawable.mine_collect);
-        tvCollectTitle.setText(R.string.mine_collect);
+        mCollectIconIv.setImageResource(R.drawable.mine_collect);
+        mCollectTitleTv.setText(R.string.mine_collect);
 
-        ivBookMarkIcon.setImageResource(R.drawable.mine_book_mark);
-        tvBookMarkTitle.setText(R.string.mine_book_mark);
+        mBookMarkIconIv.setImageResource(R.drawable.mine_book_mark);
+        mBookMarkTitleTv.setText(R.string.mine_book_mark);
 
-        ivSettingIcon.setImageResource(R.drawable.mine_setting);
-        tvSettingTitle.setText(R.string.mine_setting);
+        mSettingIconIv.setImageResource(R.drawable.mine_setting);
+        mSettingTitleTv.setText(R.string.mine_setting);
 
         mUnLoginBtn = view.findViewById(R.id.btn_unlogin);
     }
 
 
     private void initData() {
+        //从sp中取出用户的信息，用于更新面板
         String userInfo = UserConfig.getInstance().getString("userInfo", null);
         if (userInfo != null) {
             Gson gson = new Gson();
@@ -136,7 +134,6 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 String userInfo = UserConfig.getInstance().getString("userInfo", null);
-//                Log.d("-----MineFragment------", userInfo+"");
                 if (userInfo != null) {
                     //弹出用户信息界面
                     Intent intent = new Intent(mActivity, UserInfoActivity.class);

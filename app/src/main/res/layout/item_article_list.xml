@@ -18,9 +18,14 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_weight="2"
             android:gravity="center_vertical">
 
+            <com.uestc.lcy.androidbook.views.CircleImageView
+                android:id="@+id/iv_article_icon"
+                android:layout_width="58dp"
+                android:layout_height="match_parent"
+                android:src="@drawable/article_list_icon"/>
 
             <TextView
                 android:id="@+id/tv_author"
@@ -30,6 +35,7 @@
                 android:layout_marginLeft="4dp"
                 android:text="作者"
                 android:textSize="20sp"
+                android:layout_toRightOf="@id/iv_article_icon"
                 />
 
             <TextView

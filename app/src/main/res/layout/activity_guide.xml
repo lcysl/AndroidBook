@@ -15,7 +15,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:background="@color/guide_indicator_background"
+        android:background="@null"
         android:layout_gravity="center_horizontal|bottom"
         android:layout_marginBottom="30dp">
 

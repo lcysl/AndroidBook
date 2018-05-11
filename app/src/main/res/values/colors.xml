@@ -9,8 +9,6 @@
     <color name="white">#FFFFFF</color>
     <color name="gray">#9C9C9C</color>
 
-    <color name="guide_indicator_background">#FFFFFF</color>
-
     <color name="guide_indicator_normal">#00BFFF</color>
     <color name="guide_indicator_selected">#FC2C39</color>
 

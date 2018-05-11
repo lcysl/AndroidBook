@@ -13,12 +13,13 @@ import com.uestc.lcy.androidbook.modules.MainActivity;
 import com.uestc.lcy.androidbook.modules.guide.GuideActivity;
 
 /**
+ * 刚进入App时的广告页
  * Created by lcy on 2018\4\9 0009.
  */
 
 public class SplashActivity extends Activity {
 
-    private Button btnSkip;
+    private Button mSlipBtn;
     private Handler mHandler = new Handler();
 
     @Override
@@ -35,11 +36,11 @@ public class SplashActivity extends Activity {
      * 初始化View
      */
     private void initView() {
-        btnSkip = findViewById(R.id.btn_splash);
+        mSlipBtn = findViewById(R.id.btn_splash);
     }
 
     private void setListener() {
-        btnSkip.setOnClickListener(new View.OnClickListener() {
+        mSlipBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 mHandler.removeCallbacks(mRunnable);
@@ -50,7 +51,7 @@ public class SplashActivity extends Activity {
 
 
     private void DelayStart() {
-        mHandler.postDelayed(mRunnable, 5000);
+        mHandler.postDelayed(mRunnable, 3000);
     }
 
     private Runnable mRunnable = new Runnable() {
@@ -61,8 +62,9 @@ public class SplashActivity extends Activity {
     };
 
     private void startGuideOrMain() {
-        // 从 sharedPreferences 里取出值，判断值是否为true，
-        // 为true，不跳转引导页，跳转到主页面，否则跳转
+        // 从sp里取出key为guideShow的值，判断值是否为true，
+        // 为true，说明引导页已经显示过一次了，则不跳转引导页，跳转到主页面，
+        // 否则跳转到引导页
         AppConfig appConfig = AppConfig.getInstance();
         Boolean isGuideShow = appConfig.getBoolean("guideShow", false);
         if (isGuideShow) {

@@ -207,6 +207,8 @@ public class SearchActivity extends BaseActivity<SearchListPresenter> implements
                     mRecyclerView.setAdapter(mAdapter);
                     mRecyclerView.bringToFront();
                 }
+            } else {
+                Toast.makeText(this, "什么也没搜到~~", Toast.LENGTH_SHORT).show();
             }
         }
     }

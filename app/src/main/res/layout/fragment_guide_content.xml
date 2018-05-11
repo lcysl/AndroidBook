@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:background="@color/guide_indicator_background"
+        android:background="@null"
         android:text="欢迎进入"
-        android:layout_marginBottom="100dp"
+        android:layout_marginBottom="70dp"
         />
 
 </RelativeLayout>

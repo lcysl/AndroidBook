@@ -16,15 +16,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
+ * 首次进入App的引导页
  * Created by lcy on 2018\4\9 0009.
  */
 
 public class GuideActivity extends FragmentActivity {
-    private ViewPager vpGuide;
-    private LinearLayout llIndicator;
 
-    private List<Fragment> fragments = new ArrayList<>();
-    private PagerAdapter adapter;
+    private ViewPager mGuideVp;
+    private LinearLayout mIndicatorLl;
+
+    private List<Fragment> mGuideFragments = new ArrayList<>();
+    private PagerAdapter mPageAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,8 +45,8 @@ public class GuideActivity extends FragmentActivity {
 
 
     private void initView() {
-        vpGuide = findViewById(R.id.vp_guide);
-        llIndicator = findViewById(R.id.ll_guide_indicator);
+        mGuideVp = findViewById(R.id.vp_guide);
+        mIndicatorLl = findViewById(R.id.ll_guide_indicator);
     }
 
     private void initFragment() {
@@ -53,13 +55,13 @@ public class GuideActivity extends FragmentActivity {
             Bundle bundle = new Bundle();
             bundle.putInt("index", i);
             guideContentFragment.setArguments(bundle);
-            fragments.add(guideContentFragment);
+            mGuideFragments.add(guideContentFragment);
         }
     }
 
     private void initData() {
-        adapter = new GuidePageAdapter(getSupportFragmentManager(), fragments);
-        vpGuide.setAdapter(adapter);
+        mPageAdapter = new GuidePageAdapter(getSupportFragmentManager(), mGuideFragments);
+        mGuideVp.setAdapter(mPageAdapter);
     }
 
     /**
@@ -72,22 +74,22 @@ public class GuideActivity extends FragmentActivity {
         LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(width, width);
         lp.rightMargin = 2 * width;
 
-        for(int i = 0; i < fragments.size(); i++) {
+        for(int i = 0; i < mGuideFragments.size(); i++) {
             View view = new View(this);
             view.setId(i);
             view.setBackgroundResource(i == 0 ?
                     R.drawable.guide_indicator_selected:R.drawable.guide_indicator_normal);
             view.setLayoutParams(lp);
-            llIndicator.addView(view, i);
+            mIndicatorLl.addView(view, i);
         }
     }
 
     private void initListener() {
-        vpGuide.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        mGuideVp.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                for(int i = 0; i < fragments.size(); i++) {
-                    llIndicator.getChildAt(i).setBackgroundResource(position == i ?
+                for(int i = 0; i < mGuideFragments.size(); i++) {
+                    mIndicatorLl.getChildAt(i).setBackgroundResource(position == i ?
                             R.drawable.guide_indicator_selected:R.drawable.guide_indicator_normal);
                 }
             }

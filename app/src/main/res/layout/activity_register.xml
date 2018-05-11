@@ -16,26 +16,50 @@
         android:layout_marginRight="20dp"
         android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/et_reg_username"
+        <!--用户名-->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/login_username"
-            />
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
 
-        <EditText
-            android:id="@+id/et_reg_password"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/register_password"
-            />
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_reg_username"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/login_username"/>
 
-        <EditText
-            android:id="@+id/et_reg_repassword"
+        </android.support.design.widget.TextInputLayout>
+
+        <!--设置密码-->
+        <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="@string/register_repassword"
-            />
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_reg_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/register_password"/>
+
+        </android.support.design.widget.TextInputLayout>
+
+        <!--确认密码-->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:orientation="horizontal">
+
+            <android.support.design.widget.TextInputEditText
+                android:id="@+id/et_reg_repassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/register_repassword"/>
+
+        </android.support.design.widget.TextInputLayout>
 
         <Button
             android:id="@+id/btn_register"

@@ -29,23 +29,22 @@ public class GuideContentFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_guide_content, null);
-        Button btnGuide = view.findViewById(R.id.btn_guide);
-
+        Button mGuideBtn = view.findViewById(R.id.btn_guide);
         //动态给RelativeLayout设置背景
-        RelativeLayout rlGuide = view.findViewById(R.id.rl_guide);
-        //获得当前是第几张图片，由activity传过来的
+        RelativeLayout mGuideRl = view.findViewById(R.id.rl_guide);
+        //获得当前是第几张图片，由GuideActivity传过来的
         int index = getArguments().getInt("index");
-        rlGuide.setBackgroundResource(bgRes[index]);
-
-        btnGuide.setOnClickListener(new View.OnClickListener() {
+        mGuideRl.setBackgroundResource(bgRes[index]);
+        //点击引导页最后一张的按钮，进入主页面
+        mGuideBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), MainActivity.class));
                 getActivity().finish();
             }
         });
-        //设置按钮的可见性，最后一章图片才显示
-        btnGuide.setVisibility(index == 2 ? View.VISIBLE : View.GONE);
+        //设置按钮的可见性，最后一张图片才显示
+        mGuideBtn.setVisibility(index == 2 ? View.VISIBLE : View.GONE);
         return view;
     }
 }

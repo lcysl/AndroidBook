@@ -4,13 +4,11 @@ package com.uestc.lcy.androidbook.modules.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TextInputEditText;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.gson.Gson;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseActivity;
 import com.uestc.lcy.androidbook.config.ActivityConfig;
@@ -23,14 +21,18 @@ import com.uestc.lcy.androidbook.modules.register.RegisterActivity;
 import org.greenrobot.eventbus.EventBus;
 
 /**
- * 登录界面
+ * 登录
  * Created by lcy on 2018\4\12 0012.
  */
 
-public class LoginActivity extends BaseActivity<LoginPresenter> implements LoginView, View.OnClickListener{
+public class LoginActivity extends BaseActivity<LoginPresenter> implements
+        LoginView, View.OnClickListener{
 
+    /*标题栏*/
     private Button mBackBtn;
+    /*跳转到注册*/
     private TextView mToRegisterTv;
+    /*登录相关*/
     private Button mLoginBtn;
     private TextInputEditText mUsernameEt, mPasswordEt;
 
@@ -42,7 +44,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
     @Override
     protected void init(Bundle savedInstanceState) {
         initView();
-        initListener();
+        setListener();
         initData();
     }
 
@@ -67,7 +69,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         mPasswordEt = findViewById(R.id.et_password);
     }
 
-    private void initListener() {
+    private void setListener() {
         mToRegisterTv.setOnClickListener(this);
         mBackBtn.setOnClickListener(this);
         mLoginBtn.setOnClickListener(this);
@@ -118,6 +120,7 @@ public class LoginActivity extends BaseActivity<LoginPresenter> implements Login
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
             //通知我的界面刷新数据
             EventBus.getDefault().post(bean.getData().getUsername());
+            //已经有账号密码，则直接从主界面进行登录
             if (ActivityConfig.getInstance().getLastActivity().equals(MainActivity.class.getName())) {
                 onBackPressed();
             } else {

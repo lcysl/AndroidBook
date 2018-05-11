@@ -100,6 +100,7 @@
             android:layout_height="match_parent"
             android:orientation="vertical"
             android:padding="8dp"
+            android:background="@color/white"
             >
 
             <TextView
@@ -145,7 +146,8 @@
         <com.uestc.lcy.androidbook.views.ArticleListRecyclerView
             android:id="@+id/rv_search_list"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/white">
 
         </com.uestc.lcy.androidbook.views.ArticleListRecyclerView>
 

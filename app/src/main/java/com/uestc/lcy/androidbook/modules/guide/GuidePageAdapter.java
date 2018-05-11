@@ -8,10 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2018\4\9 0009.
+ * Created by lcy on 2018\4\9 0009.
  */
 
 public class GuidePageAdapter extends FragmentPagerAdapter {
+
     private List<Fragment> fragments;
 
     public GuidePageAdapter(FragmentManager fm, List<Fragment> fragments) {

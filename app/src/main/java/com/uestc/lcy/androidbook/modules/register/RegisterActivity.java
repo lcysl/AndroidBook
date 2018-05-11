@@ -17,15 +17,17 @@ import com.uestc.lcy.androidbook.modules.register.presenter.RegisterPresenter;
 import com.uestc.lcy.androidbook.modules.register.view.RegisterView;
 
 /**
- * 注册界面
+ * 注册
  * Created by lcy on 2018\4\13 0013.
  */
 
-public class RegisterActivity extends BaseActivity<RegisterPresenter> implements RegisterView , View.OnClickListener {
+public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
+        RegisterView , View.OnClickListener {
 
+    /*标题栏*/
     private Button mBackBtn;
     private TextView mRegisterTopBarTitle;
-    private LinearLayout mRegisterTopBarLayout;
+    /*注册相关*/
     private Button mRegisterBtn;
     private EditText mUserNameEt, mPasswordEt, mRepasswordEt;
 
@@ -54,10 +56,9 @@ public class RegisterActivity extends BaseActivity<RegisterPresenter> implements
 
     private void initView() {
         mBackBtn = findViewById(R.id.btn_top_bar2_return);
-        mRegisterTopBarLayout = findViewById(R.id.top_bar_register);
-        mRegisterTopBarTitle = mRegisterTopBarLayout.findViewById(R.id.tv_top_bar2_title);
-
+        mRegisterTopBarTitle = findViewById(R.id.tv_top_bar2_title);
         mRegisterTopBarTitle.setText(R.string.register);
+
         mRegisterBtn = findViewById(R.id.btn_register);
         mUserNameEt = findViewById(R.id.et_reg_username);
         mPasswordEt = findViewById(R.id.et_reg_password);

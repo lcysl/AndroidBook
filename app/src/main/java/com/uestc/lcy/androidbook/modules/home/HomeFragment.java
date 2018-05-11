@@ -172,7 +172,6 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     }
 
     private List<String> getImages() {
-//        List<BannerBean.DataBean> list = bean.getData();
         List<String> images = new ArrayList<>();
         for (BannerBean.DataBean data : mBannerData) {
             images.add(data.getImagePath());
