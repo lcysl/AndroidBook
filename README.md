@@ -9,6 +9,7 @@ AndroidBook
 # 产品功能
 ## 广告页
 #### 用户界面
+  <img width="150" height="300" src="https://github.com/lcysl/AndroidBook/raw/master/picture/splash.jpg"/>
 #### 用户场景
   用户每次启动App时显示。<br/>
   1.用户点击“跳过按钮”，则直接进入下一个界面；否则3秒后自动跳转到下一个界面；<br/>
