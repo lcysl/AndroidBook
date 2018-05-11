@@ -31,10 +31,10 @@ AndroidBook
   1.若从“我的”界面直接登录，登陆成功后返回“我的”，如果从注册界面注册完后登录，则返回“首页”。<br/>
   2.登录成功后更新用户名信息。<br/>
 #### 关键技术
-  MVP+Retrofit2+MD+EventBus
-  SharedPreference存储用户名和密码
-  单例模式
-  获取上一个Activity的方法
+  MVP+Retrofit2+MD+EventBus<br/>
+  SharedPreference存储用户名和密码<br/>
+  单例模式<br/>
+  获取上一个Activity的方法<br/>
 ## 首页列表
 #### 用户场景
   用户进入App后在“首页”中显示的文章列表，登录用户和非登录用户都可以浏览文章内容。<br/>
