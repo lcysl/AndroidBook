@@ -73,4 +73,24 @@ AndroidBook
   SharedPreference存储历史搜索的信息<br/>
 # 运行展示图
 #### 广告页
-  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/splash.jpg" width="170" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/splash.jpg" width="180" height="300"/>
+#### 引导页
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/guide1.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/guide2.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/guide3.jpg" width="180" height="300"/>
+#### 注册和登录
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/mine.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/register.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/login.jpg" width="180" height="300"/>
+#### 首页文章列表
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/home.jpg" width="180" height="300"/>
+#### 知识体系
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/knowledge_system1.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/knowledge_system2.jpg" width="180" height="300"/>
+#### 项目
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/project1.jpg" width="180" height="300"/>
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/project2.jpg" width="180" height="300"/>
+#### 导航
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/navigate.jpg" width="180" height="300"/>
+#### 搜索
+  <img src="https://github.com/lcysl/AndroidBook/raw/master/picture/search.jpg" width="180" height="300"/>
