@@ -10,16 +10,19 @@ import okhttp3.Request;
 import okhttp3.Response;
 
 /**
- * Created by Administrator on 2018\6\16 0016.
+ * Created by lcy on 2018\6\16 0016.
  */
 
-public class CookieIntereptor implements Interceptor {
+public class CookieInterceptor implements Interceptor {
 
     @Override
     public Response intercept(Chain chain) throws IOException {
+
         String cookie = CookieConfig.getInstance().getString("cookie", "");
+
         Response response;
         Request request = chain.request();
+
         if(cookie != "" && cookie != null) {
             Request compressedRequest = request.newBuilder()
                     .header("Cookie", cookie)

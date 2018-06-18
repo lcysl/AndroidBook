@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseFragment;
+import com.uestc.lcy.androidbook.config.UserConfig;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 import com.uestc.lcy.androidbook.model.BannerBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
@@ -24,6 +25,7 @@ import com.uestc.lcy.androidbook.modules.home.article_list.adapter.ArticleListAd
 import com.uestc.lcy.androidbook.modules.home.article_list.imageloader.GlideImageLoader;
 import com.uestc.lcy.androidbook.modules.home.article_list.presenter.ArticleListPresenter;
 import com.uestc.lcy.androidbook.modules.home.article_list.view.ArticleListView;
+import com.uestc.lcy.androidbook.modules.login.LoginActivity;
 import com.uestc.lcy.androidbook.views.ArticleListRecyclerView;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
@@ -213,12 +215,17 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
 
     @Override
     public void onCollectionClick(int position) {
-        itemPosition = position;
-        ArticleListBean.DataBean.DatasBean datasBean = mDatas.get(position);
-        if(datasBean.isCollect()) {
-            mPresenter.cancelCollection(datasBean.getId());
+        boolean isLogin = UserConfig.getInstance().getString("userInfo", null) != null ? true : false;
+        if(isLogin) {
+            itemPosition = position;
+            ArticleListBean.DataBean.DatasBean datasBean = mDatas.get(position);
+            if(datasBean.isCollect()) {
+                mPresenter.cancelCollection(datasBean.getId());
+            } else {
+                mPresenter.collection(datasBean.getTitle(), datasBean.getAuthor(), datasBean.getLink());
+            }
         } else {
-            mPresenter.collection(datasBean.getTitle(), datasBean.getAuthor(), datasBean.getLink());
+            startActivity(new Intent(mActivity, LoginActivity.class));
         }
     }
 

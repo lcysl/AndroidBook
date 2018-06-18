@@ -25,7 +25,6 @@ import retrofit2.Response;
 
 public class CollectionModel {
 
-
     /**
      * 收藏
      * @param callback
