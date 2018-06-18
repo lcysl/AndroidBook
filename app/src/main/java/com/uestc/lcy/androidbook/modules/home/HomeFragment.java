@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +18,7 @@ import com.uestc.lcy.androidbook.base.BaseFragment;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 import com.uestc.lcy.androidbook.model.BannerBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
+import com.uestc.lcy.androidbook.modules.collection.view.CollectionView;
 import com.uestc.lcy.androidbook.modules.home.article_content.ArticleContentActivity;
 import com.uestc.lcy.androidbook.modules.home.article_list.adapter.ArticleListAdapter;
 import com.uestc.lcy.androidbook.modules.home.article_list.imageloader.GlideImageLoader;
@@ -35,7 +37,7 @@ import java.util.List;
 
 public class HomeFragment extends BaseFragment<ArticleListPresenter> implements ArticleListView,
         ArticleListRecyclerView.OnLoadMoreListener, ArticleListAdapter.OnItemClickListener,
-        SwipeRefreshLayout.OnRefreshListener, OnBannerListener{
+        SwipeRefreshLayout.OnRefreshListener, OnBannerListener, CollectionView {
 
     /*context*/
     private MainActivity mActivity;
@@ -53,6 +55,9 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     private List<BannerBean.DataBean> mBannerData;
     /*列表项的内容*/
     private List<ArticleListBean.DataBean.DatasBean> mDatas;
+
+    private int itemPosition; // 标识当前点击的item位置
+
 
     /**
      * 实现父类的抽象方法，相当于OnCreateView
@@ -125,7 +130,9 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         if (bean.getErrorCode() == -1 && bean.getErrorMsg() != null) {
             Toast.makeText(mActivity, bean.getErrorMsg(), Toast.LENGTH_SHORT).show();
         } else if (bean.getErrorCode() == 0 && bean.getData() != null){
-            mDatas = new ArrayList<>(bean.getData().getDatas());
+            mDatas = new ArrayList<>();
+            mDatas.addAll(bean.getData().getDatas());
+            Log.e("--------A",bean.getData().getDatas().toString());
             mAdapter = new ArticleListAdapter(mDatas);
             mAdapter.setOnItemClickListener(this);
             mRecyclerView.setAdapter(mAdapter);
@@ -205,6 +212,17 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
     }
 
     @Override
+    public void onCollectionClick(int position) {
+        itemPosition = position;
+        ArticleListBean.DataBean.DatasBean datasBean = mDatas.get(position);
+        if(datasBean.isCollect()) {
+            mPresenter.cancelCollection(datasBean.getId());
+        } else {
+            mPresenter.collection(datasBean.getTitle(), datasBean.getAuthor(), datasBean.getLink());
+        }
+    }
+
+    @Override
     public void OnBannerClick(int position) {
         BannerBean.DataBean data = mBannerData.get(position);
         Bundle bundle = new Bundle();
@@ -236,4 +254,26 @@ public class HomeFragment extends BaseFragment<ArticleListPresenter> implements 
         }, 2000);
     }
 
+    @Override
+    public void onCollectionSuccess() {
+        mDatas.get(itemPosition).setCollect(true);
+        mAdapter.notifyDataSetChanged();
+        Toast.makeText(mActivity, "已收藏", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCollecionError() {
+        Toast.makeText(mActivity, "收藏失败",Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onCancelCollectionSuccess() {
+        mDatas.get(itemPosition).setCollect(false);
+        mAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onCancelCollecionError() {
+
+    }
 }

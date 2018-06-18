@@ -2,10 +2,10 @@ package com.uestc.lcy.androidbook.modules.home.article_list.adapter;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.uestc.lcy.androidbook.R;
@@ -97,12 +97,24 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
                 holder.mNiceDateTv.setText(data.getNiceDate());
                 holder.mTitleTv.setText(data.getTitle());
                 holder.mChapterNameTv.setText(data.getChapterName());
-
-                ((ViewHolder) holder).mTitleTv.setOnClickListener(new View.OnClickListener() {
+                if(data.isCollect()) {
+                    holder.mIvCollection.setImageResource(R.drawable.like);
+                } else {
+                    holder.mIvCollection.setImageResource(R.drawable.no_like);
+                }
+                holder.mTitleTv.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
                         if (mOnItemClickListener != null) {
-                            mOnItemClickListener.onItemClick(((ViewHolder) holder).itemView, pos, mDatas);
+                            mOnItemClickListener.onItemClick(holder.itemView, pos, mDatas);
+                        }
+                    }
+                });
+                holder.mIvCollection.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (mOnItemClickListener != null) {
+                            mOnItemClickListener.onCollectionClick(pos);
                         }
                     }
                 });
@@ -118,7 +130,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
 
     private int getRealPosition(ViewHolder holder) {
         int position = holder.getLayoutPosition();
-//        Log.d("--position--", position +"");
         return mHeaderView == null ? position : position - 1;
     }
 
@@ -129,6 +140,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
         TextView mNiceDateTv;
         TextView mTitleTv;
         TextView mChapterNameTv;
+        ImageView mIvCollection;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -140,6 +152,7 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
             mNiceDateTv = itemView.findViewById(R.id.tv_niceDate);
             mTitleTv = itemView.findViewById(R.id.tv_title);
             mChapterNameTv = itemView.findViewById(R.id.tv_chapterName);
+            mIvCollection = itemView.findViewById(R.id.iv_collect);
         }
     }
 
@@ -148,5 +161,6 @@ public class ArticleListAdapter extends RecyclerView.Adapter<ArticleListAdapter.
      */
     public interface OnItemClickListener {
         void onItemClick(View view, int position, List<ArticleListBean.DataBean.DatasBean> datas);
+        void onCollectionClick(int position);
     }
 }

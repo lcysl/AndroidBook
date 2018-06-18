@@ -3,6 +3,8 @@ package com.uestc.lcy.androidbook.modules.home.article_list.presenter;
 import com.uestc.lcy.androidbook.base.BasePresenter;
 import com.uestc.lcy.androidbook.model.ArticleListBean;
 import com.uestc.lcy.androidbook.model.BannerBean;
+import com.uestc.lcy.androidbook.modules.collection.callback.CollectionCallback;
+import com.uestc.lcy.androidbook.modules.collection.model.CollectionModel;
 import com.uestc.lcy.androidbook.modules.home.HomeFragment;
 import com.uestc.lcy.androidbook.modules.home.article_list.callback.ArticleListCallback;
 import com.uestc.lcy.androidbook.modules.home.article_list.model.ArticleListModel;
@@ -11,12 +13,14 @@ import com.uestc.lcy.androidbook.modules.home.article_list.model.ArticleListMode
  * Created by Administrator on 2018\4\24 0024.
  */
 
-public class ArticleListPresenter extends BasePresenter<HomeFragment> implements ArticleListCallback {
+public class ArticleListPresenter extends BasePresenter<HomeFragment> implements ArticleListCallback,CollectionCallback {
 
     private ArticleListModel mModel;
+    private CollectionModel collectionModel;
 
     public ArticleListPresenter() {
         mModel = new ArticleListModel();
+        collectionModel = new CollectionModel();
     }
 
     /**
@@ -70,6 +74,58 @@ public class ArticleListPresenter extends BasePresenter<HomeFragment> implements
         if (mView != null) {
             mView.hideLoading();
             mView.onLoadBannerError();
+        }
+    }
+
+    /**
+     * 收藏
+     * @param title
+     * @param author
+     * @param link
+     */
+    public void collection(String title, String author, String link) {
+        mView.showLoading();
+        collectionModel.collection(title,author, link, this);
+    }
+
+    /**
+     * 取消收藏
+     * @param articleId
+     */
+    public void cancelCollection(int articleId) {
+        mView.showLoading();
+        collectionModel.cancelCollection(articleId, this);
+    }
+
+    @Override
+    public void onCollectionSuccess() {
+        if(mView != null) {
+            mView.hideLoading();
+            mView.onCollectionSuccess();
+        }
+    }
+
+    @Override
+    public void onCollectionError() {
+        if(mView != null) {
+            mView.hideLoading();
+            mView.onCollecionError();
+        }
+    }
+
+    @Override
+    public void onCancelCollectionSuccess() {
+        if(mView != null) {
+            mView.hideLoading();
+            mView.onCancelCollectionSuccess();
+        }
+    }
+
+    @Override
+    public void onCancelCollectionError() {
+        if(mView != null) {
+            mView.hideLoading();
+            mView.onCancelCollecionError();
         }
     }
 

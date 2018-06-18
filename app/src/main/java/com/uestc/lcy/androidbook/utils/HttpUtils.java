@@ -1,8 +1,11 @@
 package com.uestc.lcy.androidbook.utils;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.uestc.lcy.androidbook.data.Api;
+import com.uestc.lcy.androidbook.interceptor.CookieIntereptor;
+
 import java.util.concurrent.TimeUnit;
 import okhttp3.OkHttpClient;
 import retrofit2.Retrofit;
@@ -44,6 +47,7 @@ public class HttpUtils {
         OkHttpClient mOkHttpClient = new OkHttpClient().newBuilder()
                 .connectTimeout(6000, TimeUnit.MILLISECONDS)
                 .readTimeout(6000, TimeUnit.MILLISECONDS)
+                .addInterceptor(new CookieIntereptor())
                 .build();
         return mOkHttpClient;
     }

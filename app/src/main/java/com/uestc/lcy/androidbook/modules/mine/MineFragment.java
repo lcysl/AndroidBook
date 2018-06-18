@@ -15,9 +15,11 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.uestc.lcy.androidbook.R;
 import com.uestc.lcy.androidbook.base.BaseFragment;
+import com.uestc.lcy.androidbook.config.CookieConfig;
 import com.uestc.lcy.androidbook.config.UserConfig;
 import com.uestc.lcy.androidbook.model.LoginBean;
 import com.uestc.lcy.androidbook.modules.MainActivity;
+import com.uestc.lcy.androidbook.modules.collection.CollectionActivity;
 import com.uestc.lcy.androidbook.modules.login.LoginActivity;
 import com.uestc.lcy.androidbook.modules.user_info.UserInfoActivity;
 
@@ -152,7 +154,16 @@ public class MineFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 UserConfig.getInstance().clear();
+                CookieConfig.getInstance().clear();
                 mUsernameTv.setText("未登录");
+            }
+        });
+
+        mCollectIconIv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(mActivity, CollectionActivity.class);
+                startActivity(intent);
             }
         });
     }

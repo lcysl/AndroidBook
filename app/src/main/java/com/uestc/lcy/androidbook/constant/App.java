@@ -8,4 +8,5 @@ package com.uestc.lcy.androidbook.constant;
 public class App {
     public final static String APP_CONFIG = "appConfig";
     public final static String USER_CONFIG = "userConfig";
+    public final static String COOKIE_CONFIG = "cookieConfig";
 }

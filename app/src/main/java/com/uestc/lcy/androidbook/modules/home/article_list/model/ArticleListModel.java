@@ -55,7 +55,6 @@ public class ArticleListModel {
                     public void onResponse(Call<BannerBean> call, Response<BannerBean> response) {
                         BannerBean bean = response.body();
                         callback.onLoadBannerSuccess(bean);
-                        Log.d("---lcy---", "onLoadBannerSuccess");
                     }
 
                     @Override
