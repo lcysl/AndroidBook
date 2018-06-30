@@ -36,8 +36,8 @@ public class MineFragment extends BaseFragment {
     private MainActivity mActivity;
     /*收藏、书签和设置*/
     private LinearLayout mLlCollect;
-    private LinearLayout mLlBookMark;
-    private LinearLayout mLlSetting;
+//    private LinearLayout mLlBookMark;
+//    private LinearLayout mLlSetting;
     private ImageView mCollectIconIv;
     private TextView mCollectTitleTv;
     private ImageView mBookMarkIconIv;
@@ -84,8 +84,8 @@ public class MineFragment extends BaseFragment {
      */
     private void initLayout(View view) {
         mLlCollect = view.findViewById(R.id.mine_collect);
-        mLlBookMark = view.findViewById(R.id.mine_book_mark);
-        mLlSetting  = view.findViewById(R.id.mine_setting);
+//        mLlBookMark = view.findViewById(R.id.mine_book_mark);
+//        mLlSetting  = view.findViewById(R.id.mine_setting);
     }
 
     /**
@@ -98,20 +98,20 @@ public class MineFragment extends BaseFragment {
         mCollectIconIv = mLlCollect.findViewById(R.id.iv_mine_list_icon);
         mCollectTitleTv = mLlCollect.findViewById(R.id.tv_mine_list_title);
 
-        mBookMarkIconIv = mLlBookMark.findViewById(R.id.iv_mine_list_icon);
-        mBookMarkTitleTv = mLlBookMark.findViewById(R.id.tv_mine_list_title);
-
-        mSettingIconIv = mLlSetting.findViewById(R.id.iv_mine_list_icon);
-        mSettingTitleTv = mLlSetting.findViewById(R.id.tv_mine_list_title);
+//        mBookMarkIconIv = mLlBookMark.findViewById(R.id.iv_mine_list_icon);
+//        mBookMarkTitleTv = mLlBookMark.findViewById(R.id.tv_mine_list_title);
+//
+//        mSettingIconIv = mLlSetting.findViewById(R.id.iv_mine_list_icon);
+//        mSettingTitleTv = mLlSetting.findViewById(R.id.tv_mine_list_title);
 
         mCollectIconIv.setImageResource(R.drawable.mine_collect);
         mCollectTitleTv.setText(R.string.mine_collect);
 
-        mBookMarkIconIv.setImageResource(R.drawable.mine_book_mark);
-        mBookMarkTitleTv.setText(R.string.mine_book_mark);
-
-        mSettingIconIv.setImageResource(R.drawable.mine_setting);
-        mSettingTitleTv.setText(R.string.mine_setting);
+//        mBookMarkIconIv.setImageResource(R.drawable.mine_book_mark);
+//        mBookMarkTitleTv.setText(R.string.mine_book_mark);
+//
+//        mSettingIconIv.setImageResource(R.drawable.mine_setting);
+//        mSettingTitleTv.setText(R.string.mine_setting);
 
         mUnLoginBtn = view.findViewById(R.id.btn_unlogin);
     }
@@ -158,11 +158,16 @@ public class MineFragment extends BaseFragment {
                 mUsernameTv.setText("未登录");
             }
         });
-
         mCollectIconIv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(mActivity, CollectionActivity.class);
+                Intent intent;
+                boolean isLogin = UserConfig.getInstance().getString("userInfo", null) != null ? true : false;
+                if(isLogin) {
+                    intent = new Intent(mActivity, CollectionActivity.class);
+                } else {
+                    intent = new Intent(mActivity, LoginActivity.class);
+                }
                 startActivity(intent);
             }
         });

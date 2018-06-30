@@ -1,17 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.uestc.lcy.androidbook">
+<manifest
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.uestc.lcy.androidbook"
+    xmlns:tools="http://schemas.android.com/tools">
 
     <!--网络请求的权限-->
     <uses-permission android:name="android.permission.INTERNET"/>
 
     <application
         android:name=".AndroidBookApplication"
-        android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
-        android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <service
+            android:name="cn.jpush.android.service.PushService"
+            android:process=":multiprocess"
+            tools:node="replace" >
+        </service>
 
         <activity android:name=".modules.splash.SplashActivity"
             android:theme="@style/SplashTheme">

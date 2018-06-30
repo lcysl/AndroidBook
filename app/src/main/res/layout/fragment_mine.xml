@@ -39,12 +39,13 @@
         <include
             android:id="@+id/mine_collect"
             layout="@layout/mine_list_layout"/>
+        <!--
         <include
             android:id="@+id/mine_book_mark"
             layout="@layout/mine_list_layout"/>
         <include
             android:id="@+id/mine_setting"
-            layout="@layout/mine_list_layout"/>
+            layout="@layout/mine_list_layout"/>-->
 
         <Button
             android:id="@+id/btn_unlogin"

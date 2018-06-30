@@ -10,6 +10,8 @@ import com.uestc.lcy.androidbook.config.CookieConfig;
 import com.uestc.lcy.androidbook.config.UserConfig;
 import com.uestc.lcy.androidbook.modules.guide.GuideActivity;
 
+import cn.jpush.android.api.JPushInterface;
+
 /**
  * Created by lcy on 2018\4\8 0008.
  */
@@ -25,6 +27,8 @@ public class AndroidBookApplication extends Application {
         //初始化UserConfig的sp
         UserConfig.init(this);
         CookieConfig.init(this);
+        JPushInterface.setDebugMode(true);
+        JPushInterface.init(this);
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
             public void onActivityCreated(Activity activity, Bundle bundle) {
